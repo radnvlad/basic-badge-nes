@@ -236,13 +236,14 @@ void wake_return(void)
 void badge_init (void)
 	{
 	//B_BDG009
-	start_after_wake = &wake_return; //Function pointer for waking from sleep
+//	start_after_wake = &wake_return; //Function pointer for waking from sleep
 	ticks = 0;
 	stdio_src = STDIO_LOCAL;
 //	stdio_src = STDIO_TTY1;
-	term_init();
-	strcpy(bprog,bprog_init);
-	set_cursor_state(1);
+//	term_init();
+//	strcpy(bprog,bprog_init);
+//	set_cursor_state(1);
+    handle_display = 0;
 	}
 
 ////B_BDG002

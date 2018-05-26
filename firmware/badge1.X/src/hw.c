@@ -12,9 +12,9 @@
 #pragma config IOL1WAY = OFF            // Peripheral Pin Select Configuration (Allow multiple reconfigurations)
 
 // DEVCFG2
-#pragma config FPLLIDIV = DIV_2         // PLL Input Divider (2x Divider)
-#pragma config FPLLMUL = MUL_24         // PLL Multiplier (24x Multiplier)
-#pragma config FPLLODIV = DIV_2         // System PLL Output Clock Divider (PLL Divide by 2)
+#pragma config FPLLIDIV = DIV_1//DIV_2         // PLL Input Divider (2x Divider)
+#pragma config FPLLMUL = MUL_15//MUL_24         // PLL Multiplier (24x Multiplier)
+#pragma config FPLLODIV = DIV_1//DIV_2         // System PLL Output Clock Divider (PLL Divide by 2)
 
 // DEVCFG1
 #pragma config FNOSC = FRCPLL           // Oscillator Selection Bits (Fast RC Osc with PLL)
