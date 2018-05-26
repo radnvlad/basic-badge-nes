@@ -6,15 +6,22 @@
 #include "nofrendo/nofrendo.h"
 
 int16_t main(void)
-	{
+{
+    int i;
 	hw_init();
 	badge_init();
     nofrendo_main(0, NULL);
 	//if (KEY_BRK==0) post();
 	//if ((SHOW_SPLASH)&(K_SHIFTR==1)) boot_animation();
 	//badge_menu();
-	while (1); //menu is never left, but anyway
-	}
+	while (1)
+    {
+        tft_fill_area(0,0,320,240,CIPHER_BACKGROUND);
+        wait_ms(1000);
+        tft_fill_area(0,0,320,240,CIPHER_CURSOR);
+        wait_ms(1000);
+    }
+}
 
 
 
