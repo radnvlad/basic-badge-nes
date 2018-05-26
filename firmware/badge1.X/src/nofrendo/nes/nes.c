@@ -462,12 +462,12 @@ void nes_togglepause(void)
 }
 
 /* insert a cart into the NES */
-int nes_insertcart(const char *filename, nes_t *machine)
+int nes_insertcart(const char *file_ptr, nes_t *machine)
 {
    nes6502_setcontext(machine->cpu);
 
    /* rom file */
-   machine->rominfo = rom_load(filename);
+   machine->rominfo = rom_load(file_ptr);
    if (NULL == machine->rominfo)
       goto _fail;
 

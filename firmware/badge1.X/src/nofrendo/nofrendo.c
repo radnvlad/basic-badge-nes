@@ -121,6 +121,8 @@ void main_quit(void)
    console.nexttype = system_unknown;
 }
 
+extern unsigned char _binary_SuperMarioBros_nes_start[];
+
 /* brute force system autodetection */
 static system_t detect_systemtype(const char *filename)
 {
@@ -149,7 +151,7 @@ static int internal_insert(const char *filename, system_t type)
    if (system_autodetect == type)
       type = detect_systemtype(filename);
 
-   console.filename = strdup(filename);
+   //console.filename = strdup(filename);
    console.type = type;
 
    /* set up the event system for this system type */
@@ -167,7 +169,7 @@ static int internal_insert(const char *filename, system_t type)
          return -1;
       }
 
-      if (nes_insertcart(console.filename, console.machine.nes))
+      if (nes_insertcart(&_binary_SuperMarioBros_nes_start, console.machine.nes))
          return -1;
 
       vid_setmode(NES_SCREEN_WIDTH, NES_VISIBLE_HEIGHT);
@@ -216,6 +218,7 @@ int nofrendo_main(int argc, char *argv[])
    event_init();
 
    //return osd_main(argc, argv);
+   main_loop("test",system_nes);
 }
 
 /* This is the final leg of main() */
