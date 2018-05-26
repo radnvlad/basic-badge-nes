@@ -36,6 +36,84 @@
         <itemPath>src/basic/tokenizer.c</itemPath>
         <itemPath>src/basic/ubasic.c</itemPath>
       </logicalFolder>
+      <logicalFolder name="nofrendo" displayName="nofrendo" projectFiles="true">
+        <logicalFolder name="cpu" displayName="cpu" projectFiles="true">
+          <itemPath>src/nofrendo/cpu/nes6502.c</itemPath>
+          <itemPath>src/nofrendo/cpu/dis6502.c</itemPath>
+        </logicalFolder>
+        <logicalFolder name="libsnss" displayName="libsnss" projectFiles="true">
+          <itemPath>src/nofrendo/libsnss/libsnss.c</itemPath>
+        </logicalFolder>
+        <logicalFolder name="mappers" displayName="mappers" projectFiles="true">
+          <itemPath>src/nofrendo/mappers/map231.c</itemPath>
+          <itemPath>src/nofrendo/mappers/map075.c</itemPath>
+          <itemPath>src/nofrendo/mappers/map050.c</itemPath>
+          <itemPath>src/nofrendo/mappers/map004.c</itemPath>
+          <itemPath>src/nofrendo/mappers/map065.c</itemPath>
+          <itemPath>src/nofrendo/mappers/map040.c</itemPath>
+          <itemPath>src/nofrendo/mappers/map000.c</itemPath>
+          <itemPath>src/nofrendo/mappers/map019.c</itemPath>
+          <itemPath>src/nofrendo/mappers/map078.c</itemPath>
+          <itemPath>src/nofrendo/mappers/map032.c</itemPath>
+          <itemPath>src/nofrendo/mappers/map007.c</itemPath>
+          <itemPath>src/nofrendo/mappers/map066.c</itemPath>
+          <itemPath>src/nofrendo/mappers/map085.c</itemPath>
+          <itemPath>src/nofrendo/mappers/map009.c</itemPath>
+          <itemPath>src/nofrendo/mappers/map003.c</itemPath>
+          <itemPath>src/nofrendo/mappers/map079.c</itemPath>
+          <itemPath>src/nofrendo/mappers/map073.c</itemPath>
+          <itemPath>src/nofrendo/mappers/map018.c</itemPath>
+          <itemPath>src/nofrendo/mappers/map094.c</itemPath>
+          <itemPath>src/nofrendo/mappers/map033.c</itemPath>
+          <itemPath>src/nofrendo/mappers/map016.c</itemPath>
+          <itemPath>src/nofrendo/mappers/map042.c</itemPath>
+          <itemPath>src/nofrendo/mappers/map002.c</itemPath>
+          <itemPath>src/nofrendo/mappers/map008.c</itemPath>
+          <itemPath>src/nofrendo/mappers/map229.c</itemPath>
+          <itemPath>src/nofrendo/mappers/map046.c</itemPath>
+          <itemPath>src/nofrendo/mappers/map034.c</itemPath>
+          <itemPath>src/nofrendo/mappers/map011.c</itemPath>
+          <itemPath>src/nofrendo/mappers/map070.c</itemPath>
+          <itemPath>src/nofrendo/mappers/mapvrc.c</itemPath>
+          <itemPath>src/nofrendo/mappers/map093.c</itemPath>
+          <itemPath>src/nofrendo/mappers/map015.c</itemPath>
+          <itemPath>src/nofrendo/mappers/map099.c</itemPath>
+          <itemPath>src/nofrendo/mappers/map064.c</itemPath>
+          <itemPath>src/nofrendo/mappers/map005.c</itemPath>
+          <itemPath>src/nofrendo/mappers/map041.c</itemPath>
+          <itemPath>src/nofrendo/mappers/map160.c</itemPath>
+          <itemPath>src/nofrendo/mappers/map024.c</itemPath>
+          <itemPath>src/nofrendo/mappers/map001.c</itemPath>
+          <itemPath>src/nofrendo/mappers/map087.c</itemPath>
+        </logicalFolder>
+        <logicalFolder name="nes" displayName="nes" projectFiles="true">
+          <itemPath>src/nofrendo/nes/nes_mmc.c</itemPath>
+          <itemPath>src/nofrendo/nes/nesinput.c</itemPath>
+          <itemPath>src/nofrendo/nes/mmclist.c</itemPath>
+          <itemPath>src/nofrendo/nes/nes_rom.c</itemPath>
+          <itemPath>src/nofrendo/nes/nes_ppu.c</itemPath>
+          <itemPath>src/nofrendo/nes/nesstate.c</itemPath>
+          <itemPath>src/nofrendo/nes/nes.c</itemPath>
+          <itemPath>src/nofrendo/nes/nes_pal.c</itemPath>
+        </logicalFolder>
+        <logicalFolder name="sndhrdw" displayName="sndhrdw" projectFiles="true">
+          <itemPath>src/nofrendo/sndhrdw/vrcvisnd.c</itemPath>
+          <itemPath>src/nofrendo/sndhrdw/nes_apu.c</itemPath>
+          <itemPath>src/nofrendo/sndhrdw/fds_snd.c</itemPath>
+          <itemPath>src/nofrendo/sndhrdw/mmc5_snd.c</itemPath>
+        </logicalFolder>
+        <itemPath>src/nofrendo/log.c</itemPath>
+        <itemPath>src/nofrendo/vid_drv.c</itemPath>
+        <itemPath>src/nofrendo/gui.c</itemPath>
+        <itemPath>src/nofrendo/intro.c</itemPath>
+        <itemPath>src/nofrendo/pcx.c</itemPath>
+        <itemPath>src/nofrendo/bitmap.c</itemPath>
+        <itemPath>src/nofrendo/gui_elem.c</itemPath>
+        <itemPath>src/nofrendo/event.c</itemPath>
+        <itemPath>src/nofrendo/config.c</itemPath>
+        <itemPath>src/nofrendo/nofrendo.c</itemPath>
+        <itemPath>src/nofrendo/memguard.c</itemPath>
+      </logicalFolder>
       <logicalFolder name="f1" displayName="Z80" projectFiles="true">
         <itemPath>src/Z80/hwz.c</itemPath>
         <itemPath>src/Z80/iosim.c</itemPath>
@@ -72,6 +150,7 @@
   <sourceRootList>
     <Elem>.</Elem>
     <Elem>../cpmsrc</Elem>
+    <Elem>src/nofrendo</Elem>
   </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -81,10 +160,10 @@
         <targetDevice>PIC32MX370F512H</targetDevice>
         <targetHeader></targetHeader>
         <targetPluginBoard></targetPluginBoard>
-        <platformTool>PK4Tool</platformTool>
+        <platformTool>PICkit3PlatformTool</platformTool>
         <languageToolchain>XC32</languageToolchain>
         <languageToolchainVersion>2.05</languageToolchainVersion>
-        <platform>2</platform>
+        <platform>4</platform>
       </toolsSet>
       <compileType>
         <linkerTool>
@@ -118,12 +197,13 @@
         <property key="enable-symbols" value="true"/>
         <property key="enable-unroll-loops" value="true"/>
         <property key="exclude-floating-point" value="false"/>
-        <property key="extra-include-directories" value=""/>
+        <property key="extra-include-directories"
+                  value="src/nofrendo;src/nofrendo/nes;src/nofrendo/cpu;src/nofrendo/libsnss;src/nofrendo/mappers;src/nofrendo/sndhrdw"/>
         <property key="generate-16-bit-code" value="false"/>
         <property key="generate-micro-compressed-code" value="false"/>
         <property key="isolate-each-function" value="false"/>
         <property key="make-warnings-into-errors" value="false"/>
-        <property key="optimization-level" value="-O1"/>
+        <property key="optimization-level" value="-O3"/>
         <property key="place-data-into-section" value="false"/>
         <property key="post-instruction-scheduling" value="default"/>
         <property key="pre-instruction-scheduling" value="default"/>
@@ -850,6 +930,44 @@
                   value=""/>
         <property key="warningmessagebreakoptions.warningmessages" value="holdstate"/>
       </Simulator>
+      <item path="src/Z80/iosim.c" ex="true" overriding="false">
+      </item>
+      <item path="src/Z80/sim1.c" ex="true" overriding="false">
+      </item>
+      <item path="src/Z80/sim2.c" ex="true" overriding="false">
+      </item>
+      <item path="src/Z80/sim3.c" ex="true" overriding="false">
+      </item>
+      <item path="src/Z80/sim4.c" ex="true" overriding="false">
+      </item>
+      <item path="src/Z80/sim5.c" ex="true" overriding="false">
+      </item>
+      <item path="src/Z80/sim6.c" ex="true" overriding="false">
+      </item>
+      <item path="src/Z80/sim7.c" ex="true" overriding="false">
+      </item>
+      <item path="src/Z80/simfun.c" ex="true" overriding="false">
+      </item>
+      <item path="src/Z80/simglb.c" ex="true" overriding="false">
+      </item>
+      <item path="src/basic/tokenizer.c" ex="true" overriding="false">
+      </item>
+      <item path="src/basic/ubasic.c" ex="true" overriding="false">
+      </item>
+      <item path="src/images.c" ex="true" overriding="false">
+      </item>
+      <item path="src/post.c" ex="true" overriding="false">
+      </item>
+      <item path="src/snake.c" ex="true" overriding="false">
+      </item>
+      <item path="src/splash.c" ex="true" overriding="false">
+      </item>
+      <item path="src/tetrapuzz.c" ex="true" overriding="false">
+      </item>
+      <item path="src/tune_player.c" ex="true" overriding="false">
+      </item>
+      <item path="src/user_program.c" ex="true" overriding="false">
+      </item>
     </conf>
   </confs>
 </configurationDescriptor>

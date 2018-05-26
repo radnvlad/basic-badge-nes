@@ -29,13 +29,13 @@ extern const uint8_t ram_image[65536];
 uint8_t ram_disk[RAMDISK_SIZE];
 #endif
 
-void reload_cpm_warm (void)
-{
-uint16_t i;
-#ifdef	USE_RAM_IMAGE	
-	for (i=0xD400;i<(0xD400+0x1EFF);i++) ram[i] = ram_image[i];
-#endif
-}
+//void reload_cpm_warm (void)
+//{
+//uint16_t i;
+//#ifdef	USE_RAM_IMAGE	
+//	for (i=0xD400;i<(0xD400+0x1EFF);i++) ram[i] = ram_image[i];
+//#endif
+//}
 
 //-------------------device at 0x68-----------------
 uint8_t rxm_sta (void)
@@ -75,110 +75,110 @@ track = dat;
 disk_temp_pointer = 0;
 }
 
-uint8_t read_disk_byte (void)
-{
-uint8_t temp;
-uint32_t  base,ptr;
-base = (((uint32_t )(track))*16) + sector;
-if (drive==0)
-	{
-	base = base*128;
-#ifdef USE_RAMDISK
-	ptr = base + disk_temp_pointer;
-	if (ptr<RAMDISK_SIZE)
-		temp = ram_disk[ptr];
-#endif
-#ifndef	USE_RAMDISK
-	temp = 0xA5;
-#endif
-	}
-if (drive==1)
-	{
-	base = base*128;
-#ifdef	USE_ROMDISK
-	temp = rd_image[base + disk_temp_pointer];
-#endif
-	}
-if (drive==2)
-	{
-#ifdef USE_EEPROM
-	if (disk_temp_pointer==0) read_sector(disk_temp,base);
-	temp = disk_temp[disk_temp_pointer];
-#endif
-	base = base*128;
-#ifdef	USE_ROMDISK2
-	temp = rd_image2[base + disk_temp_pointer];
-#endif
-	}
-
-if (drive==3)
-	{
-	if (disk_temp_pointer==0) fl_read_128(base+(CPM1_DISK1_OFFSET),disk_temp);
-	temp = disk_temp[disk_temp_pointer];
-	}
-if (drive==4)
-	{
-	}
-if (drive==5)
-	{
-	}
-if (drive==6)
-	{
-	}
-
-disk_temp_pointer++;
-return temp;
-}
-
-void write_disk_byte (uint8_t dat)
-{
-uint8_t temp;
-uint32_t base;
-uint32_t  ptr;
-base = (((unsigned int)(track))*16) + sector;
-if (drive==0)
-	{
-#ifdef	USE_RAMDISK
-	base = base*128;
-	ptr = base + disk_temp_pointer;
-	if (ptr<RAMDISK_SIZE)
-		ram_disk[ptr] = dat;
-#endif
-	}
-if (drive==1)
-	{
-	//rom disk, no writes allowed
-	}
-if (drive==2)
-	{
-#ifdef USE_EEPROM
-	disk_temp[disk_temp_pointer] = dat;
-	if (disk_temp_pointer==127) 
-		{
-		ee_wren();
-		write_sector(disk_temp,base);
-		}
-#endif
-	}
-if (drive==3)
-	{
-	disk_temp[disk_temp_pointer] = dat;
-	if (disk_temp_pointer==127) 
-		{
-		fl_write_128(base+(CPM1_DISK1_OFFSET),disk_temp);
-		}
-	}
-if (drive==4)
-	{
-	}
-if (drive==5)
-	{
-	}
-if (drive==6)
-	{
-	}
-disk_temp_pointer++;
-}
+//uint8_t read_disk_byte (void)
+//{
+//uint8_t temp;
+//uint32_t  base,ptr;
+//base = (((uint32_t )(track))*16) + sector;
+//if (drive==0)
+//	{
+//	base = base*128;
+//#ifdef USE_RAMDISK
+//	ptr = base + disk_temp_pointer;
+//	if (ptr<RAMDISK_SIZE)
+//		temp = ram_disk[ptr];
+//#endif
+//#ifndef	USE_RAMDISK
+//	temp = 0xA5;
+//#endif
+//	}
+//if (drive==1)
+//	{
+//	base = base*128;
+//#ifdef	USE_ROMDISK
+//	temp = rd_image[base + disk_temp_pointer];
+//#endif
+//	}
+//if (drive==2)
+//	{
+//#ifdef USE_EEPROM
+//	if (disk_temp_pointer==0) read_sector(disk_temp,base);
+//	temp = disk_temp[disk_temp_pointer];
+//#endif
+//	base = base*128;
+//#ifdef	USE_ROMDISK2
+//	temp = rd_image2[base + disk_temp_pointer];
+//#endif
+//	}
+//
+//if (drive==3)
+//	{
+//	if (disk_temp_pointer==0) fl_read_128(base+(CPM1_DISK1_OFFSET),disk_temp);
+//	temp = disk_temp[disk_temp_pointer];
+//	}
+//if (drive==4)
+//	{
+//	}
+//if (drive==5)
+//	{
+//	}
+//if (drive==6)
+//	{
+//	}
+//
+//disk_temp_pointer++;
+//return temp;
+//}
+//
+//void write_disk_byte (uint8_t dat)
+//{
+//uint8_t temp;
+//uint32_t base;
+//uint32_t  ptr;
+//base = (((unsigned int)(track))*16) + sector;
+//if (drive==0)
+//	{
+//#ifdef	USE_RAMDISK
+//	base = base*128;
+//	ptr = base + disk_temp_pointer;
+//	if (ptr<RAMDISK_SIZE)
+//		ram_disk[ptr] = dat;
+//#endif
+//	}
+//if (drive==1)
+//	{
+//	//rom disk, no writes allowed
+//	}
+//if (drive==2)
+//	{
+//#ifdef USE_EEPROM
+//	disk_temp[disk_temp_pointer] = dat;
+//	if (disk_temp_pointer==127) 
+//		{
+//		ee_wren();
+//		write_sector(disk_temp,base);
+//		}
+//#endif
+//	}
+//if (drive==3)
+//	{
+//	disk_temp[disk_temp_pointer] = dat;
+//	if (disk_temp_pointer==127) 
+//		{
+//		fl_write_128(base+(CPM1_DISK1_OFFSET),disk_temp);
+//		}
+//	}
+//if (drive==4)
+//	{
+//	}
+//if (drive==5)
+//	{
+//	}
+//if (drive==6)
+//	{
+//	}
+//disk_temp_pointer++;
+//}
 
 uint8_t fl_rdsr(void)
 {

@@ -18,7 +18,6 @@ extern uint8_t handle_display;
 void io_test_state (uint8_t state);
 
 
-
 //B_BDG001
 void post (void)
 	{

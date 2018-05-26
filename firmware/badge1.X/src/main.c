@@ -3,14 +3,16 @@
 #include "badge.h"
 #include "hw.h"
 #include "post.h"
+#include "nofrendo/nofrendo.h"
 
 int16_t main(void)
 	{
 	hw_init();
 	badge_init();
-	if (KEY_BRK==0) post();
-	if ((SHOW_SPLASH)&(K_SHIFTR==1)) boot_animation();
-	badge_menu();
+    nofrendo_main(0, NULL);
+	//if (KEY_BRK==0) post();
+	//if ((SHOW_SPLASH)&(K_SHIFTR==1)) boot_animation();
+	//badge_menu();
 	while (1); //menu is never left, but anyway
 	}
 

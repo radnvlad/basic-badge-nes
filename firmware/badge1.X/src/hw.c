@@ -2,6 +2,7 @@
 #include "hw.h"
 #include "Z80/hwz.h"
 #include <plib.h>
+#include <peripheral/pps.h>
 #include <stdint.h>
 
 // DEVCFG3

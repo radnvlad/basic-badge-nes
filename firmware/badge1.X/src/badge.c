@@ -245,167 +245,167 @@ void badge_init (void)
 	set_cursor_state(1);
 	}
 
-//B_BDG002
-void badge_menu(void)
-	{
-	showmenu();
-	
-	int8_t char_out;
-	uint8_t menu_buff[COMMAND_MAX], menu_pointer;
-	menu_pointer=0;
-	int16_t len, i;
-	uint8_t clear_flag = 0;
-	uint32_t  wait_to_clear = 0;
-	
-	uint8_t random_has_been_seeded = 0;
-	
-	while (1)
-		{
-		if (clear_flag)
-			{
-			if (millis() > wait_to_clear)
-				{
-				clear_flag = 0;
-				clear_crack();
-				}
-			}
-		uint8_t get_stat = stdio_get(&char_out);
-		if (get_stat!=0)
-			{
-			
-			//Seed random number if we haven't already
-			if (random_has_been_seeded == 0)
-				{
-				//Pull seed directly from TIMER1 register
-				srand(*(char*)0xBF800610);
-				++random_has_been_seeded;
-				}
-			if (char_out==K_UP) char_out='U';
-			if (char_out==K_DN) char_out='D';
-			if (char_out==K_LT) char_out='L';
-			if (char_out==K_RT) char_out='R';
-			stdio_c(char_out);
-			if (char_out==BACKSPACE)
-				{
-				if (menu_pointer)
-					{
-					//We only need to do this if we're not at position 0
-					--menu_pointer;
-					menu_buff[menu_pointer] = 0;
-					int16_t cursorx, cursory;
-					cursorx = video_getx();
-					cursory = video_gety();
-					stdio_write(" ");
-					video_gotoxy(cursorx, cursory);
-					}
-				else
-					{
-					//Don't let backspace key move left of input position
-					video_gotoxy(TEXT_LEFT+2,PROMPT_Y);
-					}
-				}
-			else if (char_out==NEWLINE)
-				{
-				//Erase where the funny messages are written
-				clear_crack();
-							
-				menu_buff[menu_pointer] = 0;	//add zero terminator
-				//Check entry and react
-				
-				if (menu_buff[0] == 0)
-					{
-					//No characters were input, this stops user from just
-					//hitting enter to display all funny messages
-					clear_prompt();
-					menu_pointer = 0;
-					continue;
-					}
-				if (strcmp(menu_buff,"1")==0)
-					{
-					video_clrscr();
-					init_basic();
-					while (1) loop_basic();
-					}
-				else if (strcmp(menu_buff,"2")==0)
-					{
-					video_clrscr();
-					init_z80_cpm();
-					while (1) loop_z80_cpm();
-					}			
-				else if (strcmp(menu_buff,"3")==0)
-					{
-					init_8080_basic();
-					while (1) loop_8080_basic();
-					}
-				else if (strcmp(menu_buff,"4")==0)
-					{
-					enable_display_scanning(0); //Shut off auto-scanning of character buffer
-					tetrapuzz();
-					}
-				//B_BDG006		
-				else if (strcmp(menu_buff,"5")==0)
-					{
-					stdio_local_buffer_puts("c:\nzork1\n");
-					video_clrscr();
-					video_set_color(0,14);
-					stdio_write("\n\n\n\n\n\nPROTIP:\n\tUse Shift-Enter when playing ZORK!\n\n");
-					video_set_color(15,0);
-					wait_ms(2000);
-					init_z80_cpm();
-					while (1) loop_z80_cpm();
-					}
-				else if (strcmp(menu_buff,"6")==0)
-					{
-					init_userprog();
-					while (1) loop_userprog();
-					}	
-				else
-					{
-					switch (get_command_index(hash(menu_buff)))
-						{
-						//case 0: break;
-						case 2: clear_flag = wisecrack("Make your own sandwich",TEXT_LEFT,CRACK_Y, 0); break;
-						case 3: clear_flag = wisecrack("Existence itself is not a hack", TEXT_LEFT,CRACK_Y, 0); break;
-						case 4: clear_flag = wisecrack("101010 *IS* the answer", TEXT_LEFT,CRACK_Y, 0); break;
-						case 5: clear_flag = wisecrack("Hackers don't need manuals", TEXT_LEFT,CRACK_Y, 0); break;
-						case 6: clear_flag = wisecrack("Han shot first", TEXT_LEFT,CRACK_Y, 0); break;
-						case 7: clear_flag = wisecrack("You're in a room filled with hackers", TEXT_LEFT,CRACK_Y, 0); break;
-						case 8: clear_flag = wisecrack("I am afraid I can't do that Dave", TEXT_LEFT,CRACK_Y, 0); break;
-						case 9: show_wrencher(); break;
-						case 10: play_mario_tune(); break;
-						case 11: 
-							handle_display = 0;
-							play_snake();
-							break;
-						case 12: show_help(); while(1) { ;; };
-						default: clear_flag = random_crack(); break;
-						}
-					}
-
-				
-				clear_prompt();
-				menu_pointer = 0;
-				menu_buff[menu_pointer] = 0;
-				}
-				
-			else
-				{
-				menu_buff[menu_pointer++] = char_out;
-				if (menu_pointer >= COMMAND_MAX-1) 
-					{
-					menu_pointer = 0;
-					menu_buff[menu_pointer] = 0;
-					clear_flag = wisecrack("Boo, too big.",TEXT_LEFT,CRACK_Y,1);
-					clear_prompt();
-					}
-				}
-			if (clear_flag)
-				{
-				wait_to_clear = millis() + CRACK_TIMEOUT;
-				}
-			}
-		}
-	}
+////B_BDG002
+//void badge_menu(void)
+//	{
+//	showmenu();
+//	
+//	int8_t char_out;
+//	uint8_t menu_buff[COMMAND_MAX], menu_pointer;
+//	menu_pointer=0;
+//	int16_t len, i;
+//	uint8_t clear_flag = 0;
+//	uint32_t  wait_to_clear = 0;
+//	
+//	uint8_t random_has_been_seeded = 0;
+//	
+//	while (1)
+//		{
+//		if (clear_flag)
+//			{
+//			if (millis() > wait_to_clear)
+//				{
+//				clear_flag = 0;
+//				clear_crack();
+//				}
+//			}
+//		uint8_t get_stat = stdio_get(&char_out);
+//		if (get_stat!=0)
+//			{
+//			
+//			//Seed random number if we haven't already
+//			if (random_has_been_seeded == 0)
+//				{
+//				//Pull seed directly from TIMER1 register
+//				srand(*(char*)0xBF800610);
+//				++random_has_been_seeded;
+//				}
+//			if (char_out==K_UP) char_out='U';
+//			if (char_out==K_DN) char_out='D';
+//			if (char_out==K_LT) char_out='L';
+//			if (char_out==K_RT) char_out='R';
+//			stdio_c(char_out);
+//			if (char_out==BACKSPACE)
+//				{
+//				if (menu_pointer)
+//					{
+//					//We only need to do this if we're not at position 0
+//					--menu_pointer;
+//					menu_buff[menu_pointer] = 0;
+//					int16_t cursorx, cursory;
+//					cursorx = video_getx();
+//					cursory = video_gety();
+//					stdio_write(" ");
+//					video_gotoxy(cursorx, cursory);
+//					}
+//				else
+//					{
+//					//Don't let backspace key move left of input position
+//					video_gotoxy(TEXT_LEFT+2,PROMPT_Y);
+//					}
+//				}
+//			else if (char_out==NEWLINE)
+//				{
+//				//Erase where the funny messages are written
+//				clear_crack();
+//							
+//				menu_buff[menu_pointer] = 0;	//add zero terminator
+//				//Check entry and react
+//				
+//				if (menu_buff[0] == 0)
+//					{
+//					//No characters were input, this stops user from just
+//					//hitting enter to display all funny messages
+//					clear_prompt();
+//					menu_pointer = 0;
+//					continue;
+//					}
+//				if (strcmp(menu_buff,"1")==0)
+//					{
+//					video_clrscr();
+//					init_basic();
+//					while (1) loop_basic();
+//					}
+//				else if (strcmp(menu_buff,"2")==0)
+//					{
+//					video_clrscr();
+//					init_z80_cpm();
+//					while (1) loop_z80_cpm();
+//					}			
+//				else if (strcmp(menu_buff,"3")==0)
+//					{
+//					init_8080_basic();
+//					while (1) loop_8080_basic();
+//					}
+//				else if (strcmp(menu_buff,"4")==0)
+//					{
+//					enable_display_scanning(0); //Shut off auto-scanning of character buffer
+//					tetrapuzz();
+//					}
+//				//B_BDG006		
+//				else if (strcmp(menu_buff,"5")==0)
+//					{
+//					stdio_local_buffer_puts("c:\nzork1\n");
+//					video_clrscr();
+//					video_set_color(0,14);
+//					stdio_write("\n\n\n\n\n\nPROTIP:\n\tUse Shift-Enter when playing ZORK!\n\n");
+//					video_set_color(15,0);
+//					wait_ms(2000);
+//					init_z80_cpm();
+//					while (1) loop_z80_cpm();
+//					}
+//				else if (strcmp(menu_buff,"6")==0)
+//					{
+//					init_userprog();
+//					while (1) loop_userprog();
+//					}	
+//				else
+//					{
+//					switch (get_command_index(hash(menu_buff)))
+//						{
+//						//case 0: break;
+//						case 2: clear_flag = wisecrack("Make your own sandwich",TEXT_LEFT,CRACK_Y, 0); break;
+//						case 3: clear_flag = wisecrack("Existence itself is not a hack", TEXT_LEFT,CRACK_Y, 0); break;
+//						case 4: clear_flag = wisecrack("101010 *IS* the answer", TEXT_LEFT,CRACK_Y, 0); break;
+//						case 5: clear_flag = wisecrack("Hackers don't need manuals", TEXT_LEFT,CRACK_Y, 0); break;
+//						case 6: clear_flag = wisecrack("Han shot first", TEXT_LEFT,CRACK_Y, 0); break;
+//						case 7: clear_flag = wisecrack("You're in a room filled with hackers", TEXT_LEFT,CRACK_Y, 0); break;
+//						case 8: clear_flag = wisecrack("I am afraid I can't do that Dave", TEXT_LEFT,CRACK_Y, 0); break;
+//						case 9: show_wrencher(); break;
+//						case 10: play_mario_tune(); break;
+//						case 11: 
+//							handle_display = 0;
+//							play_snake();
+//							break;
+//						case 12: show_help(); while(1) { ;; };
+//						default: clear_flag = random_crack(); break;
+//						}
+//					}
+//
+//				
+//				clear_prompt();
+//				menu_pointer = 0;
+//				menu_buff[menu_pointer] = 0;
+//				}
+//				
+//			else
+//				{
+//				menu_buff[menu_pointer++] = char_out;
+//				if (menu_pointer >= COMMAND_MAX-1) 
+//					{
+//					menu_pointer = 0;
+//					menu_buff[menu_pointer] = 0;
+//					clear_flag = wisecrack("Boo, too big.",TEXT_LEFT,CRACK_Y,1);
+//					clear_prompt();
+//					}
+//				}
+//			if (clear_flag)
+//				{
+//				wait_to_clear = millis() + CRACK_TIMEOUT;
+//				}
+//			}
+//		}
+//	}
 
 uint32_t  hash(int8_t *command)
 	{
@@ -685,94 +685,94 @@ uint32_t millis(void)
 	return ticks;
 	}
 
-void init_8080_basic (void)
-	{
-	video_set_color(15,0);
-	for (i=0;i<2048;i++) ram[i] = b2_rom[i];
-	for (i=0;i<30;i++) ram[i+0x1000] = ram_init[i];
-	wrk_ram	= PC = STACK = ram;
-	init_io(IO_BASIC_MODE);
-	}
+//void init_8080_basic (void)
+//	{
+//	video_set_color(15,0);
+//	for (i=0;i<2048;i++) ram[i] = b2_rom[i];
+//	for (i=0;i<30;i++) ram[i+0x1000] = ram_init[i];
+//	wrk_ram	= PC = STACK = ram;
+//	init_io(IO_BASIC_MODE);
+//	}
+//
+//void loop_8080_basic (void)
+//	{
+//	cpu_error = NONE;
+//	cpu();	
+//	}
 
-void loop_8080_basic (void)
-	{
-	cpu_error = NONE;
-	cpu();	
-	}
+//void init_z80_cpm (void)
+//	{
+//	video_set_color(15,0);
+//#ifdef	USE_RAM_IMAGE	
+//	for (i=0;i<65536;i++) ram[i] = ram_image[i];
+//#endif	
+//#ifdef	USE_RAMDISK
+//	for (i=0;i<RAMDISK_SIZE;i++) ram_disk[i] = 0xE5;
+//#endif
+//	wrk_ram	= PC = STACK = ram;
+//	init_io(IO_CPM_MODE);
+//	}
 
-void init_z80_cpm (void)
-	{
-	video_set_color(15,0);
-#ifdef	USE_RAM_IMAGE	
-	for (i=0;i<65536;i++) ram[i] = ram_image[i];
-#endif	
-#ifdef	USE_RAMDISK
-	for (i=0;i<RAMDISK_SIZE;i++) ram_disk[i] = 0xE5;
-#endif
-	wrk_ram	= PC = STACK = ram;
-	init_io(IO_CPM_MODE);
-	}
-
-void loop_z80_cpm (void)
-	{
-	cpu_error = NONE;
-	cpu();	
-	}
+//void loop_z80_cpm (void)
+//	{
+//	cpu_error = NONE;
+//	cpu();	
+//	}
 
 //B_BAS005
-void init_basic (void)
-	{
-	stdio_write("BASIC interpreter\n");
-	prompt = 1;
-	brk_key = 0;
-	cmd_line_pointer=0;
-	cmd_line_buff[0] = 0;
-	video_set_color(15,0);
-	}
-//B_BAS006
-void loop_basic (void)
-	{
-	if (prompt==1)
-	    {
-	    stdio_write(">");	
-	    prompt = 0;
-	    }
-	get_stat = stdio_get(&char_out);
-	if (get_stat!=0)
-	    {
-	    stdio_c(char_out);	
-	    if (char_out==NEWLINE) 
-			{
-			cmd_line_buff[cmd_line_pointer] = 0;
-			cmd_exec (cmd_line_buff);
-			cmd_line_pointer=0;
-			cmd_line_buff[0] = 0;
-			prompt = 1;			
-			}
-	    else
-			{
-			if ((char_out>=' ')&(char_out<0x7F)) cmd_line_buff[cmd_line_pointer++] = char_out;
-			else if (char_out==BACKSPACE)
-				{
-				if (cmd_line_pointer>0) 
-					cmd_line_buff[--cmd_line_pointer]=0;
-				}
+//void init_basic (void)
+//	{
+//	stdio_write("BASIC interpreter\n");
+//	prompt = 1;
+//	brk_key = 0;
+//	cmd_line_pointer=0;
+//	cmd_line_buff[0] = 0;
+//	video_set_color(15,0);
+//	}
+////B_BAS006
+//void loop_basic (void)
+//	{
+//	if (prompt==1)
+//	    {
+//	    stdio_write(">");	
+//	    prompt = 0;
+//	    }
+//	get_stat = stdio_get(&char_out);
+//	if (get_stat!=0)
+//	    {
+//	    stdio_c(char_out);	
+//	    if (char_out==NEWLINE) 
+//			{
+//			cmd_line_buff[cmd_line_pointer] = 0;
+//			cmd_exec (cmd_line_buff);
+//			cmd_line_pointer=0;
+//			cmd_line_buff[0] = 0;
+//			prompt = 1;			
+//			}
+//	    else
+//			{
+//			if ((char_out>=' ')&(char_out<0x7F)) cmd_line_buff[cmd_line_pointer++] = char_out;
+//			else if (char_out==BACKSPACE)
+//				{
+//				if (cmd_line_pointer>0) 
+//					cmd_line_buff[--cmd_line_pointer]=0;
+//				}
+//
+//			}
+//	    }	
+//	}
 
-			}
-	    }	
-	}
-
-//B_BDG007
-void init_userprog (void)
-{
-	user_program_init();
-}
-
-//B_BDG008
-void loop_userprog (void)
-{
-	user_program_loop();
-}
+////B_BDG007
+//void init_userprog (void)
+//{
+//	user_program_init();
+//}
+//
+////B_BDG008
+//void loop_userprog (void)
+//{
+//	user_program_loop();
+//}
 
 void clr_buffer (void)
 	{
@@ -848,113 +848,113 @@ uint8_t add_prog_line (int8_t * line, int8_t * prog, int16_t linenum)
 	}
     }
 
-//B_BAS007
-uint8_t cmd_exec (int8_t * cmd)
-    {
-    int8_t cmd_clean[25];
-    int32_t linenum,prognum;
-    if (isdigit(cmd[0]))
-		{
-		sscanf(cmd,"%d %[^\n]s",&linenum,cmd_clean);
-		add_prog_line (cmd_clean,bprog, linenum);
-		}
-    else
-		{
-		if (strcmp("list",cmd)==0) stdio_write(bprog);
-		else if (strcmp("memclr",cmd)==0) bprog[0]=0;
-		else if (strcmp("free",cmd)==0)
-			{
-			sprintf(stdio_buff,"%d B of memory free\n",get_free_mem(bprog,BPROG_LEN));
-			stdio_write(stdio_buff);
-			}	
-		else if (strcmp("more",cmd)==0) list_more();
-		else if (strcmp("help",cmd)==0) 
-			{
-			stdio_write("Basic BASIC help:\n");
-			stdio_write("Type more to list the program in buffer, ");
-			stdio_write("or run to run it.\n");
-			stdio_write(" For more documentation see hac.io/Mz3r\n");
-			}
-		else if (strncmp("load",cmd,4)==0)
-			{
-			sscanf (cmd+4,"%d",&prognum);
-			if ((prognum>=0)&(prognum<BASIC_SAVNUM))
-				{
-				stdio_write("loading...");
-				basic_load_program(bprog,prognum);
-				stdio_write("OK\n");
-				}
-			}
-		else if (strncmp("save",cmd,4)==0)
-			{
-			sscanf (cmd+4,"%d",&prognum);
-			if ((prognum>=0)&(prognum<BASIC_SAVNUM))
-				{
-				stdio_write("saving...");
-				basic_save_program(bprog,prognum);
-				stdio_write("OK\n");
-				}
-			}	
-		else if (strncmp("ssave",cmd,5)==0)
-			{
-			stdio_write("Transmitting via serial port...\n");
-			i = basic_saves(bprog,BPROG_LEN);
-			sprintf(stdio_buff,"\nOK, transmitted %d bytes.\n",i);
-			stdio_write(stdio_buff);
-			}	
-		else if (strncmp("sload",cmd,5)==0)
-			{
-			stdio_write("Loading new program from serial port\n");
-			stdio_write("Press BRK to exit...\n");
-			serial_flush();
-			handle_display = 0;
-			display_refresh_force();
-			i = basic_loads(bprog,BPROG_LEN);
-			handle_display = 1;
-			sprintf(stdio_buff,"\nOK, received %d bytes.\n",i);
-			stdio_write(stdio_buff);
-			}	
-		else if (strcmp("run",cmd)==0)
-			{
-			ubasic_init(bprog,0);
-			brk_key = 0;
-			do 
-				{
-				if (brk_key) 
-					{
-					brk_key = 0;
-					stdio_write("\nBRK pressed\n");
-					break;
-					}
-				if (!setjmp(jbuf)) ubasic_run();
-				else
-					{
-					stdio_write("\nBASIC error\n");
-					break;
-					}
-				} 	while(!ubasic_finished());
-			handle_display = 1;
-			stdio_write("\n");
-			}
-		else 
-			{
-			if (strlen(cmd)>0)
-				{
-				sprintf(tprog,"0 %s\n",cmd);
-				ubasic_init(tprog,1);
-				do 
-					{
-					if (!setjmp(jbuf)) ubasic_run();
-					else
-						{
-						stdio_write("BASIC error\n");
-						break;
-						}
-					} 	while(!ubasic_finished());	
-				}		
-			}
-		}
-    }
+////B_BAS007
+//uint8_t cmd_exec (int8_t * cmd)
+//    {
+//    int8_t cmd_clean[25];
+//    int32_t linenum,prognum;
+//    if (isdigit(cmd[0]))
+//		{
+//		sscanf(cmd,"%d %[^\n]s",&linenum,cmd_clean);
+//		add_prog_line (cmd_clean,bprog, linenum);
+//		}
+//    else
+//		{
+//		if (strcmp("list",cmd)==0) stdio_write(bprog);
+//		else if (strcmp("memclr",cmd)==0) bprog[0]=0;
+//		else if (strcmp("free",cmd)==0)
+//			{
+//			sprintf(stdio_buff,"%d B of memory free\n",get_free_mem(bprog,BPROG_LEN));
+//			stdio_write(stdio_buff);
+//			}	
+//		else if (strcmp("more",cmd)==0) list_more();
+//		else if (strcmp("help",cmd)==0) 
+//			{
+//			stdio_write("Basic BASIC help:\n");
+//			stdio_write("Type more to list the program in buffer, ");
+//			stdio_write("or run to run it.\n");
+//			stdio_write(" For more documentation see hac.io/Mz3r\n");
+//			}
+//		else if (strncmp("load",cmd,4)==0)
+//			{
+//			sscanf (cmd+4,"%d",&prognum);
+//			if ((prognum>=0)&(prognum<BASIC_SAVNUM))
+//				{
+//				stdio_write("loading...");
+//				basic_load_program(bprog,prognum);
+//				stdio_write("OK\n");
+//				}
+//			}
+//		else if (strncmp("save",cmd,4)==0)
+//			{
+//			sscanf (cmd+4,"%d",&prognum);
+//			if ((prognum>=0)&(prognum<BASIC_SAVNUM))
+//				{
+//				stdio_write("saving...");
+//				basic_save_program(bprog,prognum);
+//				stdio_write("OK\n");
+//				}
+//			}	
+//		else if (strncmp("ssave",cmd,5)==0)
+//			{
+//			stdio_write("Transmitting via serial port...\n");
+//			i = basic_saves(bprog,BPROG_LEN);
+//			sprintf(stdio_buff,"\nOK, transmitted %d bytes.\n",i);
+//			stdio_write(stdio_buff);
+//			}	
+//		else if (strncmp("sload",cmd,5)==0)
+//			{
+//			stdio_write("Loading new program from serial port\n");
+//			stdio_write("Press BRK to exit...\n");
+//			serial_flush();
+//			handle_display = 0;
+//			display_refresh_force();
+//			i = basic_loads(bprog,BPROG_LEN);
+//			handle_display = 1;
+//			sprintf(stdio_buff,"\nOK, received %d bytes.\n",i);
+//			stdio_write(stdio_buff);
+//			}	
+//		else if (strcmp("run",cmd)==0)
+//			{
+//			ubasic_init(bprog,0);
+//			brk_key = 0;
+//			do 
+//				{
+//				if (brk_key) 
+//					{
+//					brk_key = 0;
+//					stdio_write("\nBRK pressed\n");
+//					break;
+//					}
+//				if (!setjmp(jbuf)) ubasic_run();
+//				else
+//					{
+//					stdio_write("\nBASIC error\n");
+//					break;
+//					}
+//				} 	while(!ubasic_finished());
+//			handle_display = 1;
+//			stdio_write("\n");
+//			}
+//		else 
+//			{
+//			if (strlen(cmd)>0)
+//				{
+//				sprintf(tprog,"0 %s\n",cmd);
+//				ubasic_init(tprog,1);
+//				do 
+//					{
+//					if (!setjmp(jbuf)) ubasic_run();
+//					else
+//						{
+//						stdio_write("BASIC error\n");
+//						break;
+//						}
+//					} 	while(!ubasic_finished());	
+//				}		
+//			}
+//		}
+//    }
 
 
 uint16_t basic_loads (int8_t * data, uint16_t maxlen)
@@ -1149,15 +1149,15 @@ int8_t term_k_char (int8_t * out)
 	}
 
 
-void boot_animation(void)
-	{
-	handle_display = 0; //Shut off auto-scanning of character buffer
-	animate_splash();
-	uint16_t waitfor = ticks+1000;	//Wait for 1 second
-	while (ticks<waitfor) { ;; }
-	tft_fill_area(0,0,320,240,0x000000);    //Make display black
-	handle_display = 1; //Go back to character display
-}
+//void boot_animation(void)
+//	{
+//	handle_display = 0; //Shut off auto-scanning of character buffer
+//	animate_splash();
+//	uint16_t waitfor = ticks+1000;	//Wait for 1 second
+//	while (ticks<waitfor) { ;; }
+//	tft_fill_area(0,0,320,240,0x000000);    //Make display black
+//	handle_display = 1; //Go back to character display
+//}
 
 uint8_t stdio_local_buffer_state (void)
 	{
