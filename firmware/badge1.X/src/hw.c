@@ -342,7 +342,7 @@ void hw_sleep (void)
 	IFS0bits.INT2IF = 0;
 	IEC0bits.INT2IE = 1;
 	IPC2bits.INT2IP = 4;
-	asm volatile("wait"); 
+	//asm volatile("wait"); 
 	IEC0bits.INT2IE = 0;
 	PMD1 = 0;
 	PMD2 = 0;
@@ -446,12 +446,12 @@ void hw_init (void)
 	GEN_ENABLE = 1;
     INTEnableSystemMultiVectoredInt();
 	
-	wait_ms(50);
-    TFT_24_7789_Init();
-	tft_fill_area(0,0,320,240,0);	//fill with black color
-	wait_ms(80);					//wait a moment to avoid flicker
-	LCD_BKLT = 0;					//turn backlight on
-	fl_rst_pb();
+	//wait_ms(50);
+    //TFT_24_7789_Init();
+	//tft_fill_area(0,0,320,240,0);	//fill with black color
+	//wait_ms(80);					//wait a moment to avoid flicker
+	//LCD_BKLT = 0;					//turn backlight on
+	//fl_rst_pb();
 
 	//if reset is after POR or manual reset, forget LED state
 	if ((RCONbits.BOR)|(RCONbits.EXTR)|(RCONbits.POR))

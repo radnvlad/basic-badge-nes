@@ -550,6 +550,24 @@ static void ppu_buildpalette(ppu_t *src_ppu, rgb_t *pal)
    }
 }
 
+uint16 myPalette[256];
+
+/* copy nes palette over to hardware */
+static void set_palette(rgb_t *pal)
+{
+	uint16 c;
+
+   int i;
+
+   for (i = 0; i < 256; i++)
+   {
+      c=(pal[i].b>>3)+((pal[i].g>>2)<<5)+((pal[i].r>>3)<<11);
+      //myPalette[i]=(c>>8)|((c&0xff)<<8);
+      myPalette[i]=c;
+   }
+
+}
+
 /* build the emulator specific palette based on a 64-entry palette
 ** input palette can be either nes_palette or a 64-entry RGB palette
 ** read in from disk (i.e. for VS games)
@@ -557,7 +575,8 @@ static void ppu_buildpalette(ppu_t *src_ppu, rgb_t *pal)
 void ppu_setpal(ppu_t *src_ppu, rgb_t *pal)
 {
    ppu_buildpalette(src_ppu, pal);
-   vid_setpalette(src_ppu->curpal);
+   //vid_setpalette(src_ppu->curpal);
+   set_palette(src_ppu->curpal);
 }
 
 void ppu_setdefaultpal(ppu_t *src_ppu)

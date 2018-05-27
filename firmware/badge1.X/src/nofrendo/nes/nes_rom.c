@@ -219,7 +219,7 @@ static void rom_checkforpal(rominfo_t *rominfo)
    ASSERT(rominfo);
 
    strncpy(filename, rominfo->filename, PATH_MAX);
-   osd_newextension(filename, ".pal");
+   //osd_newextension(filename, ".pal");
 
    fp = fopen(filename, "rb");
    if (NULL == fp)

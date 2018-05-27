@@ -648,12 +648,12 @@ void loop_badge(void)
 	dbg = PORTD;
 	if (K_PWR==0)
 		{
-		while (K_PWR==0);
-		wait_ms(100);
-		hw_sleep();
-		wait_ms(30);
-		while (K_PWR==0);
-		wait_ms(300);
+		//while (K_PWR==0);
+		//wait_ms(100);
+		//hw_sleep();
+		//wait_ms(30);
+		//while (K_PWR==0);
+		//wait_ms(300);
 		}
 	if (KEY_BRK==0)
 		{
@@ -1208,10 +1208,14 @@ void __ISR(_TIMER_5_VECTOR, IPL3AUTO) Timer5Handler(void)
 		key_buffer[key_buffer_ptr++] = key_temp;
 }
 
+extern volatile int nofrendo_ticks;
+
 void __ISR(_TIMER_1_VECTOR, IPL4AUTO) Timer1Handler(void)
 	{
     IFS0bits.T1IF = 0;
     ++ticks;
+    //if (ticks % 16 == 0)
+        nofrendo_ticks++;
 	}
 void __ISR(_EXTERNAL_2_VECTOR, IPL4AUTO) Int2Handler(void)
 	{

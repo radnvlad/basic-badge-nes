@@ -336,21 +336,24 @@ static void nes_renderframe(bool draw_flag)
 static void system_video(bool draw)
 {
    /* TODO: hack */
-   if (false == draw)
-   {
-      gui_frame(false);
-      return;
-   }
+//   if (false == draw)
+//   {
+//      //gui_frame(false);
+//      return;
+//   }
 
    /* blit the NES screen to our video surface */
 //   vid_blit(nes.vidbuf, 0, (NES_SCREEN_HEIGHT - NES_VISIBLE_HEIGHT) / 2,
 //            0, 0, NES_SCREEN_WIDTH, NES_VISIBLE_HEIGHT);
 
    /* overlay our GUI on top of it */
-   gui_frame(true);
+   //gui_frame(true);
 
    /* blit to screen */
    vid_flush();
+   
+   //ili9341_write_frame(x, y, DEFAULT_WIDTH, DEFAULT_HEIGHT, (const uint8_t **)bmp->line);
+   
 
    /* grab input */
    //osd_getinput();
@@ -509,7 +512,9 @@ nes_t *nes_create(void)
    sndinfo_t osd_sound;
    int i;
 
-   machine = malloc(sizeof(nes_t));
+   int sizee = sizeof(nes_t);
+   
+   machine = malloc(sizee);
    if (NULL == machine)
       return NULL;
 

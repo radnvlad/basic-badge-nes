@@ -28,7 +28,7 @@
 #include "nes6502.h"
 #include "dis6502.h"
 
-//#define  NES6502_DISASM
+#//define  NES6502_DISASM
 
 #ifdef __GNUC__
 #define  NES6502_JUMPTABLE
@@ -1155,14 +1155,15 @@ INLINE uint32 zp_readword(register uint8 address)
    return (uint32) (*(uint16 *)(ram + address));
 }
 
-INLINE uint32 bank_readword(register uint32 address)
+uint32 bank_readword(register uint32 address)
 {
    /* technically, this should fail if the address is $xFFF, but
    ** any code that does this would be suspect anyway, as it would
    ** be fetching a word across page boundaries, which only would
    ** make sense if the banks were physically consecutive.
    */
-   return (uint32) (*(uint16 *)(cpu.mem_page[address >> NES6502_BANKSHIFT] + (address & NES6502_BANKMASK)));
+   //return (uint32) (*(uint16 *)(cpu.mem_page[address >> NES6502_BANKSHIFT] + (address & NES6502_BANKMASK)));
+    return 0;
 }
 
 #else /* !HOST_LITTLE_ENDIAN */
@@ -1978,7 +1979,14 @@ int nes6502_execute(int timeslice_cycles)
          OPCODE_END
 
       OPCODE_BEGIN(8D)  /* STA $nnnn */
-         STA(4, ABSOLUTE_ADDR, mem_writebyte, addr);
+      //mem_writebyte(addr, A);
+      //addr = bank_readword(PC);   
+        //ABSOLUTE_ADDR(addr); 
+        addr = bank_readword(PC); \
+        PC += 2; \
+        mem_writebyte(addr, A); 
+        ADD_CYCLES(4); 
+         //STA(4, ABSOLUTE_ADDR, mem_writebyte, addr);
          OPCODE_END
 
       OPCODE_BEGIN(8E)  /* STX $nnnn */

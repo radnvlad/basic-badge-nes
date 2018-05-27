@@ -338,23 +338,23 @@ void vid_flush(void)
    int num_dirties;
    rect_t dirty_rects[MAX_DIRTIES];
 
-   ASSERT(driver);
+   //ASSERT(driver);
 
-   if (true == driver->invalidate)
-   {
-      driver->invalidate = false;
-      num_dirties = -1;
-   }
-   else
-   {
+//   if (true == driver->invalidate)
+//   {
+//      driver->invalidate = false;
+//      num_dirties = -1;
+//   }
+   //else
+   //{
       //num_dirties = calc_dirties(dirty_rects);
       num_dirties = -1;
-   }
+   //}
 
-   if (driver->custom_blit)
-      driver->custom_blit(primary_buffer, num_dirties, dirty_rects);
-   else
-      vid_blitscreen(num_dirties, dirty_rects);
+   //if (driver->custom_blit)
+   //   driver->custom_blit(primary_buffer, num_dirties, dirty_rects);
+   //else
+      //vid_blitscreen(num_dirties, dirty_rects);
 
    /* Swap pointers to the main/back buffers */
 //   temp = back_buffer;

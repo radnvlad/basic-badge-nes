@@ -77,7 +77,7 @@ static void shutdown_everything(void)
    }
 
    config.close();
-   osd_shutdown();
+   //osd_shutdown();
    gui_shutdown();
    vid_shutdown();
    log_shutdown();
@@ -229,28 +229,28 @@ int main_loop(const char *filename, system_t type)
    /* register shutdown, in case of assertions, etc. */
 //   atexit(shutdown_everything);
 
-   if (config.open())
-      return -1;
+//   if (config.open())
+//s      return -1;
 
    //if (osd_init())
    //   return -1;
 
-   if (gui_init())
-      return -1;
+   //if (gui_init())
+   //   return -1;
 
    //osd_getvideoinfo(&video);
-   if (vid_init(video.default_width, video.default_height, video.driver))
-      return -1;
-	printf("vid_init done\n");
+//   if (vid_init(video.default_width, video.default_height, video.driver))
+//      return -1;
+//	printf("vid_init done\n");
 
    console.nextfilename = strdup(filename);
    console.nexttype = type;
 
-   while (false == console.quit)
-   {
+   //while (false == console.quit)
+   //{
       if (internal_insert(console.nextfilename, console.nexttype))
          return 1;
-   }
+   //}
 
    return 0;
 }
