@@ -1152,20 +1152,41 @@ static uint8 null_page[NES6502_BANKSIZE];
 */
 INLINE uint32 zp_readword(register uint8 address)
 {
-   return (uint32) (*(uint16 *)(ram + address));
+   if (address & 1)
+   {
+       address &= 0xfe;
+       return (uint32) (((*(uint16 *)(ram + address)) & 0xff << 8) 
+               + ((*(uint16 *)(ram + address + 2)) & 0xff >> 8)); 
+               
+   }
+   else
+   {
+       return (uint32) (*(uint16 *)(ram + address));
+   }
 }
 
-uint32 bank_readword(register uint32 address)
+INLINE uint32 bank_readword(register uint32 address)
 {
    /* technically, this should fail if the address is $xFFF, but
    ** any code that does this would be suspect anyway, as it would
    ** be fetching a word across page boundaries, which only would
    ** make sense if the banks were physically consecutive.
-   */
-   //return (uint32) (*(uint16 *)(cpu.mem_page[address >> NES6502_BANKSHIFT] + (address & NES6502_BANKMASK)));
-    return 0;
+   */ 
+   
+    address = address >> NES6502_BANKSHIFT;
+    register uint32  offset = address & NES6502_BANKMASK;
+    
+   if (offset & 1)
+   {
+       offset &= 0xfe;
+       return (uint32) (((*(uint16 *)(cpu.mem_page[address] + offset)) & 0xff << 8) 
+               + (*(uint16 *)(cpu.mem_page[address] + offset + 2) >> 8));
+   }
+   else 
+   {
+       return (uint32) (*(uint16 *)(cpu.mem_page[address] + offset));
+   }
 }
-
 #else /* !HOST_LITTLE_ENDIAN */
 
 INLINE uint32 zp_readword(register uint8 address)
@@ -1979,14 +2000,7 @@ int nes6502_execute(int timeslice_cycles)
          OPCODE_END
 
       OPCODE_BEGIN(8D)  /* STA $nnnn */
-      //mem_writebyte(addr, A);
-      //addr = bank_readword(PC);   
-        //ABSOLUTE_ADDR(addr); 
-        addr = bank_readword(PC); \
-        PC += 2; \
-        mem_writebyte(addr, A); 
-        ADD_CYCLES(4); 
-         //STA(4, ABSOLUTE_ADDR, mem_writebyte, addr);
+         STA(4, ABSOLUTE_ADDR, mem_writebyte, addr);
          OPCODE_END
 
       OPCODE_BEGIN(8E)  /* STX $nnnn */
