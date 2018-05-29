@@ -1152,40 +1152,19 @@ static uint8 null_page[NES6502_BANKSIZE];
 */
 INLINE uint32 zp_readword(register uint8 address)
 {
-   if (address & 1)
-   {
-       address &= 0xfe;
-       return (uint32) (((*(uint16 *)(ram + address)) & 0xff << 8) 
-               + ((*(uint16 *)(ram + address + 2)) & 0xff >> 8)); 
-               
-   }
-   else
-   {
-       return (uint32) (*(uint16 *)(ram + address));
-   }
+    return (uint32) (ram[address]) | (ram[(address+1)]);
 }
 
-INLINE uint32 bank_readword(register uint32 address)
+
+inline uint32 bank_readword(register uint32 address)
 {
    /* technically, this should fail if the address is $xFFF, but
    ** any code that does this would be suspect anyway, as it would
    ** be fetching a word across page boundaries, which only would
    ** make sense if the banks were physically consecutive.
    */ 
-   
-    address = address >> NES6502_BANKSHIFT;
-    register uint32  offset = address & NES6502_BANKMASK;
-    
-   if (offset & 1)
-   {
-       offset &= 0xfe;
-       return (uint32) (((*(uint16 *)(cpu.mem_page[address] + offset)) & 0xff << 8) 
-               + (*(uint16 *)(cpu.mem_page[address] + offset + 2) >> 8));
-   }
-   else 
-   {
-       return (uint32) (*(uint16 *)(cpu.mem_page[address] + offset));
-   }
+   return (uint32) (cpu.mem_page[address >> NES6502_BANKSHIFT][address & NES6502_BANKMASK]) 
+           | (cpu.mem_page[(address+1) >> NES6502_BANKSHIFT][(address+1) & NES6502_BANKMASK]);
 }
 #else /* !HOST_LITTLE_ENDIAN */
 

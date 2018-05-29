@@ -35,7 +35,7 @@
 static bitmap_t *screen = NULL;
 
 /* primary / backbuffer surfaces */
-static bitmap_t *primary_buffer = NULL; //, *back_buffer = NULL;
+bitmap_t *primary_buffer = NULL; //, *back_buffer = NULL;
 
 static viddriver_t *driver = NULL;
 

@@ -38,7 +38,7 @@
 #include <nes_mmc.h>
 #include <vid_drv.h>
 #include <nofrendo.h>
-
+#include "../../disp.h"
 
 #define  NES_CLOCK_DIVIDER    12
 //#define  NES_MASTER_CLOCK     21477272.727272727272
@@ -293,6 +293,7 @@ void nes_nmi(void)
    nes6502_nmi();
 }
 
+int tsting = 0, tsti = 0;
 static void nes_renderframe(bool draw_flag)
 {
    int elapsed_cycles;
@@ -327,11 +328,13 @@ static void nes_renderframe(bool draw_flag)
       nes_checkfiq(elapsed_cycles);
 
       ppu_endscanline(nes.scanline);
-      nes.scanline++;
+      nes.scanline++; 
    }
 
    nes.scanline = 0;
 }
+
+extern bitmap_t *primary_buffer;
 
 static void system_video(bool draw)
 {
@@ -350,7 +353,8 @@ static void system_video(bool draw)
    //gui_frame(true);
 
    /* blit to screen */
-   vid_flush();
+   //vid_flush();
+    tft_writebuf((const uint8_t **)primary_buffer->line, 256, 240);
    
    //ili9341_write_frame(x, y, DEFAULT_WIDTH, DEFAULT_HEIGHT, (const uint8_t **)bmp->line);
    

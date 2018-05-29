@@ -16,10 +16,10 @@ int16_t main(void)
 	//badge_menu();
 	while (1)
     {
-        tft_fill_area(0,0,320,240,CIPHER_BACKGROUND);
-        wait_ms(1000);
-        tft_fill_area(0,0,320,240,CIPHER_CURSOR);
-        wait_ms(1000);
+        //tft_fill_area(0,0,320,240,CIPHER_BACKGROUND);
+        //wait_ms(1000);
+        //tft_fill_area(0,0,320,240,CIPHER_CURSOR);
+        //wait_ms(1000);
     }
 }
 

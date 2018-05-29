@@ -172,7 +172,8 @@ static int internal_insert(const char *filename, system_t type)
       if (nes_insertcart(&_binary_SuperMarioBros_nes_start, console.machine.nes))
          return -1;
 
-      vid_setmode(NES_SCREEN_WIDTH, NES_VISIBLE_HEIGHT);
+      // was visible height!!!
+      vid_setmode(NES_SCREEN_WIDTH, NES_SCREEN_HEIGHT);
 
       if (install_timer(NES_REFRESH_RATE))
          return -1;

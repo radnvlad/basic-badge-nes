@@ -408,7 +408,32 @@ void tft_fill_area (uint16_t x, uint16_t y, uint16_t xlen, uint16_t ylen, uint32
     //FIXME: Why do I need these +1 adjustments. Off-by-one in tft_set_write_area?
     for (i=0; i<((xlen+1)*(ylen+1)); i++)
     {
-	TFT_24_7789_Write_Data3((back>>16)&0xFF,(back>>8)&0xFF,(back>>0)&0xFF);
+        TFT_24_7789_Write_Data3((back>>16)&0xFF,(back>>8)&0xFF,(back>>0)&0xFF);
+    }
+}
+
+extern uint16_t myPalette[256];
+
+inline void tft_writebuf (const uint8_t *buf[], uint16_t xlen, uint16_t ylen)
+{
+    uint32_t i,j;
+    tft_set_write_area(0,0,xlen-1,ylen-1);
+    TFT_24_7789_Write_Command(0x2C);
+    //FIXME: Why do I need these +1 adjustments. Off-by-one in tft_set_write_area?
+//    for (i=0; i<((xlen)*(ylen)); i++)
+//    {
+//        //TFT_24_7789_Write_Data3(buf[(3*i)+2],buf[(3*i)+1],buf[3*i]);
+//        //TFT_24_7789_Write_Data33(buf[i], buf[i], buf[i]); 
+//        TFT_24_7789_Write_Data33(buf[i], buf[i], buf[i]);
+//    }
+    
+    int x,y;
+    uint8_t a;
+    for (y=0; y<ylen; y++) {
+        for (x=0; x<xlen; x++) {
+            a = buf[y][x];
+            TFT_24_7789_Write_Data33(a, a, a);
+        }
     }
 }
 
@@ -447,6 +472,19 @@ inline void TFT_24_7789_Write_Data(uint16_t data1)
 	}
 
 inline void TFT_24_7789_Write_Data3(uint16_t data1,uint16_t data2, uint16_t data3)
+	{
+	LCD_WR_CLR;
+	LCD_PORT = data1;
+	LCD_WR_SET;
+	LCD_WR_CLR;
+	LCD_PORT = data2;
+	LCD_WR_SET;
+	LCD_WR_CLR;
+	LCD_PORT = data3;
+	LCD_WR_SET;
+	}
+
+inline void TFT_24_7789_Write_Data33(uint8_t data1,uint8_t data2, uint8_t data3)
 	{
 	LCD_WR_CLR;
 	LCD_PORT = data1;

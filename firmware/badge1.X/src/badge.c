@@ -110,7 +110,7 @@ uint16_t term_pointer,vertical_shift;
 int16_t prog_ptr;
 int32_t i,j,len;
 jmp_buf jbuf;
-volatile uint8_t handle_display = 1;
+volatile uint8_t handle_display = 0;
 volatile int8_t brk_key,stdio_src;
 extern volatile uint16_t bufsize;
 volatile uint32_t ticks;			// millisecond timer incremented in ISR
@@ -648,12 +648,12 @@ void loop_badge(void)
 	dbg = PORTD;
 	if (K_PWR==0)
 		{
-		//while (K_PWR==0);
-		//wait_ms(100);
-		//hw_sleep();
-		//wait_ms(30);
-		//while (K_PWR==0);
-		//wait_ms(300);
+//		while (K_PWR==0);
+//		wait_ms(100);
+//		hw_sleep();
+//		wait_ms(30);
+//		while (K_PWR==0);
+//		wait_ms(300);
 		}
 	if (KEY_BRK==0)
 		{
