@@ -1150,21 +1150,21 @@ static uint8 null_page[NES6502_BANKSIZE];
 /* NOTE: following two functions will fail on architectures
 ** which do not support byte alignment
 */
-INLINE uint32 zp_readword(register uint8 address)
-{
-    return (uint32) (ram[address+1]) | (((uint32)(ram[address])) << 8);
+uint32 zp_readword(register uint8 address)
+{ 
+   return (uint32) (ram[address]) | (((uint32)(ram[address+1])) << 8);
 }
 
 
-inline uint32 bank_readword(register uint32 address)
+uint32 bank_readword(register uint32 address)
 {
    /* technically, this should fail if the address is $xFFF, but
    ** any code that does this would be suspect anyway, as it would
    ** be fetching a word across page boundaries, which only would
    ** make sense if the banks were physically consecutive.
    */ 
-   return (uint32) (cpu.mem_page[(address+1) >> NES6502_BANKSHIFT][(address+1) & NES6502_BANKMASK]) 
-           | (((uint32)(cpu.mem_page[(address) >> NES6502_BANKSHIFT][(address) & NES6502_BANKMASK])) << 8);
+   return (uint32) (cpu.mem_page[(address) >> NES6502_BANKSHIFT][(address) & NES6502_BANKMASK]) 
+           | (((uint32)(cpu.mem_page[(address) >> NES6502_BANKSHIFT][(address+1) & NES6502_BANKMASK])) << 8);
 }
 #else /* !HOST_LITTLE_ENDIAN */
 

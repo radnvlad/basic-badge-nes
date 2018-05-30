@@ -293,7 +293,6 @@ void nes_nmi(void)
    nes6502_nmi();
 }
 
-int tsting = 0, tsti = 0;
 static void nes_renderframe(bool draw_flag)
 {
    int elapsed_cycles;
@@ -395,8 +394,8 @@ void nes_emulate(void)
       else if (frames_to_render > 1)
       {
          frames_to_render--;
-         nes_renderframe(false);
-         system_video(false);
+         nes_renderframe(true);
+         system_video(true);
       }
       else if ((1 == frames_to_render && true == nes.autoframeskip)
                || false == nes.autoframeskip)
