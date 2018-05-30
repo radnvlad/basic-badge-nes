@@ -648,12 +648,12 @@ void loop_badge(void)
 	dbg = PORTD;
 	if (K_PWR==0)
 		{
-//		while (K_PWR==0);
-//		wait_ms(100);
-//		hw_sleep();
-//		wait_ms(30);
-//		while (K_PWR==0);
-//		wait_ms(300);
+		while (K_PWR==0);
+		wait_ms(100);
+		hw_sleep();
+		wait_ms(30);
+		while (K_PWR==0);
+		wait_ms(300);
 		}
 	if (KEY_BRK==0)
 		{

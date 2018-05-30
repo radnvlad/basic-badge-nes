@@ -342,7 +342,7 @@ void hw_sleep (void)
 	IFS0bits.INT2IF = 0;
 	IEC0bits.INT2IE = 1;
 	IPC2bits.INT2IP = 4;
-	//asm volatile("wait"); 
+	asm volatile("wait"); 
 	IEC0bits.INT2IE = 0;
 	PMD1 = 0;
 	PMD2 = 0;
