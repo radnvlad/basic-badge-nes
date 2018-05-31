@@ -354,7 +354,6 @@ static void system_video(bool draw)
    /* blit to screen */
    //vid_flush();
     tft_writebuf((const uint8_t **)primary_buffer->line);
-   
    //ili9341_write_frame(x, y, DEFAULT_WIDTH, DEFAULT_HEIGHT, (const uint8_t **)bmp->line);
    
 
@@ -376,34 +375,37 @@ void nes_emulate(void)
 
    while (false == nes.poweroff)
    {
-      if (nofrendo_ticks != last_ticks)
-      {
-         int tick_diff = nofrendo_ticks - last_ticks;
+       nes_renderframe(true);
+       system_video(true);
+       
+//      if (nofrendo_ticks != last_ticks)
+//      {
+//         int tick_diff = nofrendo_ticks - last_ticks;
+//
+//         frames_to_render += tick_diff;
+//         gui_tick(tick_diff);
+//         last_ticks = nofrendo_ticks;
+//      }
 
-         frames_to_render += tick_diff;
-         gui_tick(tick_diff);
-         last_ticks = nofrendo_ticks;
-      }
-
-      if (true == nes.pause)
-      {
-         /* TODO: dim the screen, and pause/silence the apu */
-         system_video(true);
-         frames_to_render = 0;
-      }
-      else if (frames_to_render > 1)
-      {
-         frames_to_render--;
-         nes_renderframe(true);
-         system_video(true);
-      }
-      else if ((1 == frames_to_render && true == nes.autoframeskip)
-               || false == nes.autoframeskip)
-      {
-         frames_to_render = 0;
-         nes_renderframe(true);
-         system_video(true);
-      }
+//      if (true == nes.pause)
+//      {
+//         /* TODO: dim the screen, and pause/silence the apu */
+//         system_video(true);
+//         frames_to_render = 0;
+//      }
+//      else if (frames_to_render > 1)
+//      {
+//         frames_to_render--;
+//         nes_renderframe(true);
+//         system_video(true);
+//      }
+//      else if ((1 == frames_to_render && true == nes.autoframeskip)
+//               || false == nes.autoframeskip)
+//      {
+//         frames_to_render = 0;
+//         nes_renderframe(true);
+//         system_video(true);
+//      }
    }
 }
 

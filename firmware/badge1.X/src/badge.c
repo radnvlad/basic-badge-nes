@@ -1216,7 +1216,7 @@ void __ISR(_TIMER_1_VECTOR, IPL4AUTO) Timer1Handler(void)
     IFS0bits.T1IF = 0;
     ++ticks;
     //if (ticks % 16 == 0)
-        nofrendo_ticks++;
+    //nofrendo_ticks++;
 	}
 void __ISR(_EXTERNAL_2_VECTOR, IPL4AUTO) Int2Handler(void)
 	{
