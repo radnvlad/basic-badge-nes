@@ -416,15 +416,14 @@ void tft_fill_area (uint16_t x, uint16_t y, uint16_t xlen, uint16_t ylen, uint16
 
 extern uint16_t myPalette[256];
 
-void tft_writebuf (const uint8_t *buf[], uint16_t xlen, uint16_t ylen)
+inline void tft_writebuf (const uint8_t *buf[])
 {
-    tft_set_write_area(0,0,xlen-1,ylen-1);
+    tft_set_write_area(32, 0, 255, 239);
     TFT_24_7789_Write_Command(0x2C);
     
     int x,y;
-    uint8_t a;
-    for (y=0; y<ylen; y++) {
-        for (x=0; x<xlen; x++) {
+    for (y=0; y < 240; y++) {
+        for (x=0; x < 256; x++) {
             TFT_24_7789_Write_Data33(myPalette[buf[y][x]]);
         }
     }

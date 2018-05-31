@@ -1197,15 +1197,16 @@ void stdio_local_buffer_puts (int8_t * data)
 //B_BDG003
 void __ISR(_TIMER_5_VECTOR, IPL3AUTO) Timer5Handler(void)
 {
-    uint8_t key_temp;
+    //uint8_t key_temp;
     IFS0bits.T5IF = 0;
-	disp_tasks();
+	//disp_tasks();
+    fast_nes_input();
 	loop_badge();
-    if (handle_display)
-		tft_disp_buffer_refresh_part((uint8_t *)(disp_buffer),(uint8_t *)color_buffer);
-    key_temp = keyb_tasks();
-    if (key_temp>0)
-		key_buffer[key_buffer_ptr++] = key_temp;
+//    if (handle_display)
+//		tft_disp_buffer_refresh_part((uint8_t *)(disp_buffer),(uint8_t *)color_buffer);
+//    key_temp = keyb_tasks();
+//    if (key_temp>0)
+//		key_buffer[key_buffer_ptr++] = key_temp;
 }
 
 extern volatile int nofrendo_ticks;

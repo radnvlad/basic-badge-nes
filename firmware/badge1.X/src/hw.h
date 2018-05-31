@@ -22,8 +22,8 @@
 #define		LCD_BKLT	LATFbits.LATF0
 #define		LCD_PWR		LATCbits.LATC15
 
-#define     K_R5        LATFbits.LATF4
-#define     K_R4        LATBbits.LATB15
+#define     K_R5        LATBbits.LATB15//LATFbits.LATF4
+#define     K_R4        LATFbits.LATF4//LATBbits.LATB15
 #define     K_R3        LATBbits.LATB14
 #define     K_R2        LATBbits.LATB13
 #define     K_R1        LATBbits.LATB12
@@ -153,5 +153,6 @@ uint8_t rx_sta (void);
 uint8_t rx_read (void);
 void tx_write (uint8_t data);
 
+void fast_nes_input();
 
 #endif

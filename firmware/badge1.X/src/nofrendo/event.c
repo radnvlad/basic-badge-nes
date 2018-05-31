@@ -40,7 +40,7 @@
 static event_t *system_events = NULL;
 
 /* standard keyboard input */
-static nesinput_t kb_input = { INP_JOYPAD0, 0 };
+nesinput_t kb_input = { INP_JOYPAD0, 0 };
 static nesinput_t kb_alt_input = { INP_JOYPAD1, 0 };
 
 static void func_event_quit(int code)

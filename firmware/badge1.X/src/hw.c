@@ -4,6 +4,7 @@
 #include <plib.h>
 #include <peripheral/pps.h>
 #include <stdint.h>
+#include <nesinput.h>
 
 // DEVCFG3
 // USERID = No Setting
@@ -463,6 +464,84 @@ void hw_init (void)
 	
   	}
 
+extern nesinput_t kb_input;
+
+void fast_nes_input()
+{
+    static uint8_t up_state = 1, dn_state = 1, lt_state = 1, 
+            rt_state = 1, a_state = 1, b_state = 1, 
+            sel_state = 1, st_state = 1;
+    uint8_t key_state;
+    
+    K_R5 = 1;
+    // it seems that if battery drops below a certain voltage we cannot read any keys except for BRK_COL which is not multiplexed
+    
+    // DOWN key
+    key_state = K_C1;
+    if (dn_state != key_state)
+    {
+        dn_state = key_state;
+        input_event(&kb_input, (key_state&1)?INP_STATE_BREAK:INP_STATE_MAKE, INP_PAD_DOWN);
+    }
+
+    // RIGHT key  
+    key_state = K_C2;
+    if (rt_state != key_state)
+    {
+        rt_state = key_state;
+        input_event(&kb_input, (key_state&1)?INP_STATE_BREAK:INP_STATE_MAKE, INP_PAD_RIGHT);
+    }
+
+    // LEFT key
+    key_state = K_C3;
+    if (lt_state != key_state)
+    {
+        lt_state = key_state;
+        input_event(&kb_input, (key_state&1)?INP_STATE_BREAK:INP_STATE_MAKE, INP_PAD_LEFT);
+    }
+
+    // UP key
+    key_state = K_C5;
+    if (up_state != key_state)
+    {
+        up_state = key_state;
+        input_event(&kb_input, (key_state&1)?INP_STATE_BREAK:INP_STATE_MAKE, INP_PAD_UP);
+    }
+
+    // A key, -" 
+    key_state = K_C10;
+    if (a_state != key_state)
+    {
+        a_state = key_state;
+        input_event(&kb_input, (key_state&1)?INP_STATE_BREAK:INP_STATE_MAKE, INP_PAD_A);
+    }
+
+    // B key, DEL
+    key_state = K_C6;
+    if (b_state != key_state)
+    {
+        b_state = key_state;
+        input_event(&kb_input, (key_state&1)?INP_STATE_BREAK:INP_STATE_MAKE, INP_PAD_B);
+    }
+
+    // START key, BKSP
+    key_state = K_C9;
+    if (st_state != key_state)
+    {
+        st_state = key_state;
+        input_event(&kb_input, (key_state&1)?INP_STATE_BREAK:INP_STATE_MAKE, INP_PAD_START);
+    }
+
+    K_R5 = 0;
+    
+    // SELECT key, BRK/COL
+    key_state = KEY_BRK;
+    if (sel_state != key_state)
+    {
+        sel_state = key_state;
+        input_event(&kb_input, (key_state&1)?INP_STATE_BREAK:INP_STATE_MAKE, INP_PAD_SELECT);
+    }
+}
 
 uint8_t keyb_tasks (void)
 	{
