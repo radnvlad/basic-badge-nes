@@ -236,7 +236,7 @@ void wake_return(void)
 void badge_init (void)
 	{
 	//B_BDG009
-//	start_after_wake = &wake_return; //Function pointer for waking from sleep
+//	start_after_wake = &wake_return;start_after //Function pointer for waking from sleep
 	ticks = 0;
 	stdio_src = STDIO_LOCAL;
 //	stdio_src = STDIO_TTY1;
@@ -1200,7 +1200,7 @@ void __ISR(_TIMER_5_VECTOR, IPL3AUTO) Timer5Handler(void)
     //uint8_t key_temp;
     IFS0bits.T5IF = 0;
 	//disp_tasks();
-    fast_nes_input();
+    fast_nes_input(false);
 	loop_badge();
 //    if (handle_display)
 //		tft_disp_buffer_refresh_part((uint8_t *)(disp_buffer),(uint8_t *)color_buffer);

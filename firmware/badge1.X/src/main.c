@@ -6,9 +6,9 @@
 #include "nofrendo/nofrendo.h"
 
 int16_t main(void)
-{
-    int i;
+{            
 	hw_init();
+    fast_nes_input(true);
 	badge_init();
     nofrendo_main(0, NULL);
 	//if (KEY_BRK==0) post();

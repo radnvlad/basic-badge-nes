@@ -351,7 +351,7 @@ void hw_sleep (void)
 	PMD4 = 0;
 	PMD5 = 0;
 	PMD6 = 0;
-	hw_init();
+    
 	start_after_wake();
 	}
 
@@ -466,15 +466,32 @@ void hw_init (void)
 
 extern nesinput_t kb_input;
 
-void fast_nes_input()
+void fast_nes_input(bool first_call)
 {
     static uint8_t up_state = 1, dn_state = 1, lt_state = 1, 
             rt_state = 1, a_state = 1, b_state = 1, 
             sel_state = 1, st_state = 1;
     uint8_t key_state;
     
+    if (first_call)
+    {
+        K_R1 = 0;
+        K_R2 = 0;
+        K_R3 = 0;
+        K_R4 = 0;
+        K_R5 = 0;
+        
+        up_state = 1;
+        dn_state = 1;
+        lt_state = 1;
+        rt_state = 1;
+        a_state = 1;
+        b_state = 1;
+        sel_state = 1;
+        st_state = 1;
+    }
+    
     K_R5 = 1;
-    // it seems that if battery drops below a certain voltage we cannot read any keys except for BRK_COL which is not multiplexed
     
     // DOWN key
     key_state = K_C1;

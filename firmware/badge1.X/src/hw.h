@@ -3,6 +3,7 @@
 
 //#include <xc.h>
 #include <stdint.h>
+#include <stdbool.h>
 #include "badge_settings.h"
 
 #define DISP_BUFFER_WIDE    40
@@ -153,6 +154,6 @@ uint8_t rx_sta (void);
 uint8_t rx_read (void);
 void tx_write (uint8_t data);
 
-void fast_nes_input();
+void fast_nes_input(bool first_call);
 
 #endif
