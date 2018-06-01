@@ -9,7 +9,6 @@ int16_t main(void)
 {            
 	hw_init();
     fast_nes_input(true);
-	badge_init();
     nofrendo_main(0, NULL);
 	//if (KEY_BRK==0) post();
 	//if ((SHOW_SPLASH)&(K_SHIFTR==1)) boot_animation();

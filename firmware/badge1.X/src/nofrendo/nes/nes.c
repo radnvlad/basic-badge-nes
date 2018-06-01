@@ -353,9 +353,8 @@ static void system_video(bool draw)
 
    /* blit to screen */
    //vid_flush();
-    tft_writebuf((const uint8_t **)primary_buffer->line);
-   //ili9341_write_frame(x, y, DEFAULT_WIDTH, DEFAULT_HEIGHT, (const uint8_t **)bmp->line);
-   
+    //tft_writebuf((const uint8_t **)primary_buffer->line);
+    tft_writebuf(primary_buffer->data);
 
    /* grab input */
    //osd_getinput();

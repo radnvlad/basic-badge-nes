@@ -16,14 +16,7 @@
       </logicalFolder>
       <itemPath>src/disp.h</itemPath>
       <itemPath>src/hw.h</itemPath>
-      <itemPath>src/vt100.h</itemPath>
-      <itemPath>src/splash.h</itemPath>
-      <itemPath>src/tune_player.h</itemPath>
-      <itemPath>src/post.h</itemPath>
-      <itemPath>src/badge_settings.h</itemPath>
       <itemPath>src/badge.h</itemPath>
-      <itemPath>src/user_program.h</itemPath>
-      <itemPath>src/badge_user.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -114,31 +107,9 @@
         <itemPath>src/nofrendo/nofrendo.c</itemPath>
         <itemPath>src/nofrendo/memguard.c</itemPath>
       </logicalFolder>
-      <logicalFolder name="f1" displayName="Z80" projectFiles="true">
-        <itemPath>src/Z80/hwz.c</itemPath>
-        <itemPath>src/Z80/iosim.c</itemPath>
-        <itemPath>src/Z80/sim1.c</itemPath>
-        <itemPath>src/Z80/sim2.c</itemPath>
-        <itemPath>src/Z80/sim3.c</itemPath>
-        <itemPath>src/Z80/sim4.c</itemPath>
-        <itemPath>src/Z80/sim5.c</itemPath>
-        <itemPath>src/Z80/sim6.c</itemPath>
-        <itemPath>src/Z80/sim7.c</itemPath>
-        <itemPath>src/Z80/simfun.c</itemPath>
-        <itemPath>src/Z80/simglb.c</itemPath>
-      </logicalFolder>
       <itemPath>src/disp.c</itemPath>
       <itemPath>src/hw.c</itemPath>
-      <itemPath>src/images.c</itemPath>
-      <itemPath>src/vt100.c</itemPath>
       <itemPath>src/main.c</itemPath>
-      <itemPath>src/splash.c</itemPath>
-      <itemPath>src/tetrapuzz.c</itemPath>
-      <itemPath>src/box_game.c</itemPath>
-      <itemPath>src/tune_player.c</itemPath>
-      <itemPath>src/post.c</itemPath>
-      <itemPath>src/snake.c</itemPath>
-      <itemPath>src/user_program.c</itemPath>
       <itemPath>src/badge.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
@@ -427,6 +398,7 @@
         <property key="UART2" value="true"/>
         <property key="UART3" value="true"/>
         <property key="UART4" value="true"/>
+        <property key="firmware.download.all" value="false"/>
         <property key="hwtoolclock.frcindebug" value="false"/>
         <property key="memories.aux" value="false"/>
         <property key="memories.bootflash" value="true"/>
@@ -931,7 +903,7 @@
                   value=""/>
         <property key="warningmessagebreakoptions.warningmessages" value="holdstate"/>
       </Simulator>
-      <item path="src/Z80/iosim.c" ex="true" overriding="false">
+      <item path="src/Z80/fdefs.h" ex="true" overriding="false">
         <C32>
         </C32>
         <C32-AR>
@@ -945,7 +917,7 @@
         <C32Global>
         </C32Global>
       </item>
-      <item path="src/Z80/sim1.c" ex="true" overriding="false">
+      <item path="src/Z80/hwz.h" ex="true" overriding="false">
         <C32>
         </C32>
         <C32-AR>
@@ -959,7 +931,7 @@
         <C32Global>
         </C32Global>
       </item>
-      <item path="src/Z80/sim2.c" ex="true" overriding="false">
+      <item path="src/Z80/sim.h" ex="true" overriding="false">
         <C32>
         </C32>
         <C32-AR>
@@ -973,91 +945,7 @@
         <C32Global>
         </C32Global>
       </item>
-      <item path="src/Z80/sim3.c" ex="true" overriding="false">
-        <C32>
-        </C32>
-        <C32-AR>
-        </C32-AR>
-        <C32-AS>
-        </C32-AS>
-        <C32-LD>
-        </C32-LD>
-        <C32CPP>
-        </C32CPP>
-        <C32Global>
-        </C32Global>
-      </item>
-      <item path="src/Z80/sim4.c" ex="true" overriding="false">
-        <C32>
-        </C32>
-        <C32-AR>
-        </C32-AR>
-        <C32-AS>
-        </C32-AS>
-        <C32-LD>
-        </C32-LD>
-        <C32CPP>
-        </C32CPP>
-        <C32Global>
-        </C32Global>
-      </item>
-      <item path="src/Z80/sim5.c" ex="true" overriding="false">
-        <C32>
-        </C32>
-        <C32-AR>
-        </C32-AR>
-        <C32-AS>
-        </C32-AS>
-        <C32-LD>
-        </C32-LD>
-        <C32CPP>
-        </C32CPP>
-        <C32Global>
-        </C32Global>
-      </item>
-      <item path="src/Z80/sim6.c" ex="true" overriding="false">
-        <C32>
-        </C32>
-        <C32-AR>
-        </C32-AR>
-        <C32-AS>
-        </C32-AS>
-        <C32-LD>
-        </C32-LD>
-        <C32CPP>
-        </C32CPP>
-        <C32Global>
-        </C32Global>
-      </item>
-      <item path="src/Z80/sim7.c" ex="true" overriding="false">
-        <C32>
-        </C32>
-        <C32-AR>
-        </C32-AR>
-        <C32-AS>
-        </C32-AS>
-        <C32-LD>
-        </C32-LD>
-        <C32CPP>
-        </C32CPP>
-        <C32Global>
-        </C32Global>
-      </item>
-      <item path="src/Z80/simfun.c" ex="true" overriding="false">
-        <C32>
-        </C32>
-        <C32-AR>
-        </C32-AR>
-        <C32-AS>
-        </C32-AS>
-        <C32-LD>
-        </C32-LD>
-        <C32CPP>
-        </C32CPP>
-        <C32Global>
-        </C32Global>
-      </item>
-      <item path="src/Z80/simglb.c" ex="true" overriding="false">
+      <item path="src/Z80/simglb.h" ex="true" overriding="false">
         <C32>
         </C32>
         <C32-AR>
@@ -1086,118 +974,6 @@
         </C32Global>
       </item>
       <item path="src/basic/ubasic.c" ex="true" overriding="false">
-        <C32>
-        </C32>
-        <C32-AR>
-        </C32-AR>
-        <C32-AS>
-        </C32-AS>
-        <C32-LD>
-        </C32-LD>
-        <C32CPP>
-        </C32CPP>
-        <C32Global>
-        </C32Global>
-      </item>
-      <item path="src/box_game.c" ex="true" overriding="false">
-        <C32>
-        </C32>
-        <C32-AR>
-        </C32-AR>
-        <C32-AS>
-        </C32-AS>
-        <C32-LD>
-        </C32-LD>
-        <C32CPP>
-        </C32CPP>
-        <C32Global>
-        </C32Global>
-      </item>
-      <item path="src/images.c" ex="true" overriding="false">
-        <C32>
-        </C32>
-        <C32-AR>
-        </C32-AR>
-        <C32-AS>
-        </C32-AS>
-        <C32-LD>
-        </C32-LD>
-        <C32CPP>
-        </C32CPP>
-        <C32Global>
-        </C32Global>
-      </item>
-      <item path="src/post.c" ex="true" overriding="false">
-        <C32>
-        </C32>
-        <C32-AR>
-        </C32-AR>
-        <C32-AS>
-        </C32-AS>
-        <C32-LD>
-        </C32-LD>
-        <C32CPP>
-        </C32CPP>
-        <C32Global>
-        </C32Global>
-      </item>
-      <item path="src/snake.c" ex="true" overriding="false">
-        <C32>
-        </C32>
-        <C32-AR>
-        </C32-AR>
-        <C32-AS>
-        </C32-AS>
-        <C32-LD>
-        </C32-LD>
-        <C32CPP>
-        </C32CPP>
-        <C32Global>
-        </C32Global>
-      </item>
-      <item path="src/splash.c" ex="true" overriding="false">
-        <C32>
-        </C32>
-        <C32-AR>
-        </C32-AR>
-        <C32-AS>
-        </C32-AS>
-        <C32-LD>
-        </C32-LD>
-        <C32CPP>
-        </C32CPP>
-        <C32Global>
-        </C32Global>
-      </item>
-      <item path="src/tetrapuzz.c" ex="true" overriding="false">
-        <C32>
-        </C32>
-        <C32-AR>
-        </C32-AR>
-        <C32-AS>
-        </C32-AS>
-        <C32-LD>
-        </C32-LD>
-        <C32CPP>
-        </C32CPP>
-        <C32Global>
-        </C32Global>
-      </item>
-      <item path="src/tune_player.c" ex="true" overriding="false">
-        <C32>
-        </C32>
-        <C32-AR>
-        </C32-AR>
-        <C32-AS>
-        </C32-AS>
-        <C32-LD>
-        </C32-LD>
-        <C32CPP>
-        </C32CPP>
-        <C32Global>
-        </C32Global>
-      </item>
-      <item path="src/user_program.c" ex="true" overriding="false">
         <C32>
         </C32>
         <C32-AR>

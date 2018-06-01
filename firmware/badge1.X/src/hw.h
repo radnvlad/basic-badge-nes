@@ -4,7 +4,6 @@
 //#include <xc.h>
 #include <stdint.h>
 #include <stdbool.h>
-#include "badge_settings.h"
 
 #define DISP_BUFFER_WIDE    40
 #define DISP_BUFFER_HIGH    20

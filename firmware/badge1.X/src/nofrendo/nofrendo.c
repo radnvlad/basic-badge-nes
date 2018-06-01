@@ -144,6 +144,8 @@ static int install_timer(int hertz)
    //                        sizeof(nofrendo_ticks));
 }
 
+extern bitmap_t *primary_buffer;
+
 /* This assumes there is no current context */
 static int internal_insert(const char *filename, system_t type)
 {
@@ -174,6 +176,7 @@ static int internal_insert(const char *filename, system_t type)
 
       // was visible height!!!
       vid_setmode(NES_SCREEN_WIDTH, NES_SCREEN_HEIGHT);
+      disp_pmp_dma_init(primary_buffer->data);
 
       if (install_timer(NES_REFRESH_RATE))
          return -1;

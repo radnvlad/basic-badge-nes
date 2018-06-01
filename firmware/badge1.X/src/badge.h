@@ -2,15 +2,15 @@
 #define	__BADGE_H
 
 #include <stdint.h>
-#include "tune_player.h"
-#include "splash.h"
-#include "tetrapuzz.h"
-#include "post.h"
-#include "badge_settings.h"
-#include "snake.h"
-#include "user_program.h"
-#include "vt100.h"
-#include "Z80/hwz.h"
+//#include "tune_player.h"
+//#include "splash.h"
+//#include "tetrapuzz.h"
+//#include "post.h"
+//#include "badge_settings.h"
+//#include "snake.h"
+//#include "user_program.h"
+//#include "vt100.h"
+//#include "Z80/hwz.h"
 #include "hw.h"
 #include "disp.h"
 
