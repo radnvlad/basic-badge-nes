@@ -38,10 +38,10 @@ static int			dmaChn;			// the DMA channel to use
 static const unsigned int dmaFullSize = 256 * 240 * 2;
 // we want screen size to be a multiple of dmaChunkSize and dmaChunkSize to fit the remaining RAM
 // this refers to 16b data after palettizing
-static const unsigned int dmaChunkSize = 256 * 240 / 6 * 2;
+static const unsigned int dmaChunkSize = 256 * 240 / 5 * 2;
 // this refers to 8b data straight from framebuffer
-static const unsigned int dataChunkSize = 256 * 240 / 6;
-static uint8_t palChunk[256 * 240 / 6 * 2]; 
+static const unsigned int dataChunkSize = 256 * 240 / 5;
+static uint8_t palChunk[256 * 240 / 5 * 2]; 
 
 static unsigned int dmaRemSize = 0;
 
