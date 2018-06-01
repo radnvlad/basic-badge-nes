@@ -1,7 +1,6 @@
 #include <xc.h>
 #include "hw.h"
 #include "disp.h"
-#include "vt100.h"
 #include <stdint.h>
 
 #include <stdlib.h>
