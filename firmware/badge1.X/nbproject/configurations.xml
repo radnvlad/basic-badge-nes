@@ -150,9 +150,9 @@
         <property key="additional-warnings" value="false"/>
         <property key="addresss-attribute-use" value="false"/>
         <property key="enable-app-io" value="false"/>
-        <property key="enable-omit-frame-pointer" value="false"/>
+        <property key="enable-omit-frame-pointer" value="true"/>
         <property key="enable-symbols" value="true"/>
-        <property key="enable-unroll-loops" value="false"/>
+        <property key="enable-unroll-loops" value="true"/>
         <property key="exclude-floating-point" value="false"/>
         <property key="extra-include-directories"
                   value="src/nofrendo;src/nofrendo/nes;src/nofrendo/cpu;src/nofrendo/libsnss;src/nofrendo/mappers;src/nofrendo/sndhrdw"/>
@@ -162,8 +162,8 @@
         <property key="make-warnings-into-errors" value="false"/>
         <property key="optimization-level" value="-O3"/>
         <property key="place-data-into-section" value="false"/>
-        <property key="post-instruction-scheduling" value="default"/>
-        <property key="pre-instruction-scheduling" value="default"/>
+        <property key="post-instruction-scheduling" value="schedule-insns2"/>
+        <property key="pre-instruction-scheduling" value="schedule-insns"/>
         <property key="preprocessor-macros" value="_SUPPRESS_PLIB_WARNING"/>
         <property key="strict-ansi" value="false"/>
         <property key="support-ansi" value="false"/>

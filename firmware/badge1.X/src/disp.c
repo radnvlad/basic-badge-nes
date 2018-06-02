@@ -49,14 +49,14 @@ extern uint16_t myPalette[256];
 static inline void disp_apply_palette(uint8_t * buf)
 {
     int i;
-    int j= 0;
-    uint16_t tmp = 0;
+    int j= dataChunkSize * 2 - 1;
+    register uint16_t tmp = 0;
 
-    for (i=0; i < dataChunkSize; i++)
+    for (i=dataChunkSize; i; i--)
     {
         tmp = myPalette[buf[i]];
-        palChunk[j++] = tmp >> 8;
-        palChunk[j++] = tmp & 0x0f;
+        palChunk[j--] = tmp & 0x0f;
+        palChunk[j--] = tmp >> 8;
     }
 }
 

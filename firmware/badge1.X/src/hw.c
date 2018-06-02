@@ -41,6 +41,7 @@ uint16_t rnd_var1,rnd_var2,rnd_var3;
 
 void hw_sleep (void)
 	{
+    PMCONbits.ON = 0;
     set_led_word(0);
 	T1CONbits.TON = 0;
 	T2CONbits.TON = 0;
