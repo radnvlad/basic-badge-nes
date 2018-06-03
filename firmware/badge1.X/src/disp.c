@@ -46,10 +46,11 @@ static unsigned int dmaRemSize = 0;
 
 extern uint16_t myPalette[256];
 
+// this needs to be further optimized!
 static inline void disp_apply_palette(uint8_t * buf)
 {
-    int i;
-    int j= dataChunkSize * 2 - 1;
+    register int i;
+    register int j= dataChunkSize * 2 - 1;
     register uint16_t tmp = 0;
 
     for (i=dataChunkSize; i; i--)
@@ -60,16 +61,6 @@ static inline void disp_apply_palette(uint8_t * buf)
     }
 }
 
-
-int i = 0;
-void __attribute__((nomips16))_general_exception_handler(void)
-{
-    /* Mask off ExcCode field from the Cause Register */
-    /* Disable interrupts */
-    /* Examine EPC and ExcCode */
-    /* Provide a useful indication of the Exception as well as a recovery mechanism */
-    i++;
-}  
 
 void __ISR(_DMA0_VECTOR, IPL5AUTO) DmaIntHandler(void)
 {
@@ -235,14 +226,25 @@ inline void TFT_24_7789_Write_Data33(uint16_t data)
 /*******************************************************************************/
 void TFT_24_7789_Init(void)
 	{
+    int i;
+    
 	LCD_RES = 0;
 	LCD_RD = 1;
 	LCD_WR = 1;
-	//wait_ms(2);
 	LCD_RES = 1;
-	wait_ms(2);
+    i = 0;
+    while (i < 200000)
+    {
+        i++;
+        asm volatile("nop");
+    }
 	TFT_24_7789_Write_Command(0x0029);//exit SLEEP mode
-	wait_ms(2);
+    i = 0;
+    while (i < 200000)
+    {
+        i++;
+        asm volatile("nop");
+    }
 	TFT_24_7789_Write_Command(0x0036);
 	TFT_24_7789_Write_Data(0x70);//MADCTL: memory data access control
 	TFT_24_7789_Write_Command(0x003A);

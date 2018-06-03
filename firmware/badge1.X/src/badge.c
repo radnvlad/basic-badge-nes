@@ -4,9 +4,6 @@
 #include <stdlib.h>
 
 
-volatile uint32_t ticks = 0;// millisecond timer incremented in ISR
-
-
 /************ Defines ****************************/
 #define STDIO_LOCAL_BUFF_SIZE	25
 
@@ -56,41 +53,3 @@ void loop_badge(void)
 		}
 }
 
-uint32_t millis(void)
-{
-    return ticks;
-}
-
-
-//************************************************************************
-//some hardware stuff
-
-
-//B_BDG003
-void __ISR(_TIMER_5_VECTOR, IPL6AUTO) Timer5Handler(void)
-{
-    //uint8_t key_temp;
-    IFS0bits.T5IF = 0;
-	//disp_tasks();
-    fast_nes_input(false);
-	loop_badge();
-//    if (handle_display)
-//		tft_disp_buffer_refresh_part((uint8_t *)(disp_buffer),(uint8_t *)color_buffer);
-//    key_temp = keyb_tasks();
-//    if (key_temp>0)
-//		key_buffer[key_buffer_ptr++] = key_temp;
-}
-
-extern volatile int nofrendo_ticks;
-
-void __ISR(_TIMER_1_VECTOR, IPL4AUTO) Timer1Handler(void)
-	{
-    IFS0bits.T1IF = 0;
-    ++ticks;
-    //if (ticks % 16 == 0)
-    //nofrendo_ticks++;
-	}
-void __ISR(_EXTERNAL_2_VECTOR, IPL4AUTO) Int2Handler(void)
-	{
-	IEC0bits.INT2IE = 0;
-	}

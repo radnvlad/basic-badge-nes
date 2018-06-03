@@ -37,8 +37,6 @@
 #pragma config BWP = OFF                // Boot Flash Write Protect bit (Protection Disabled)
 #pragma config CP = OFF                 // Code Protect (Protection Disabled)
 
-uint16_t rnd_var1,rnd_var2,rnd_var3;
-
 void hw_sleep (void)
 	{
     PMCONbits.ON = 0;
@@ -174,25 +172,6 @@ void hw_init (void)
     LCD_BKLT = 1;
     LCD_PWR = 0;
 	TRISCbits.TRISC15 = 0;
-	
-    PR5 = 12 *(FPB / 64 / 1000);
-    T5CONbits.TCKPS = 0b110;
-    T5CONbits.TON = 1;
-    IEC0bits.T5IE = 1;	
-    IPC5bits.T5IP = 6;
-
-    IEC0bits.T2IE = 1;	
-    IPC2bits.T2IP = 6;
-    IEC0bits.T3IE = 1;	
-    IPC3bits.T3IP = 6;
-    IEC0bits.T4IE = 1;	
-    IPC4bits.T4IP = 6;
-
-    PR1 = (1*(FPB / 64 / 1000)) - 1;
-    T1CONbits.TCKPS = 0b10;	//Prescale 64 makes 1ms = 750 ticks at 48 MHz
-    T1CONbits.TON = 1;
-    IEC0bits.T1IE = 1;
-    IPC1bits.T1IP = 4;
 
     INTEnableSystemMultiVectoredInt();
 	
@@ -316,102 +295,3 @@ void fast_nes_input(bool first_call)
         input_event(&kb_input, (key_state&1)?INP_STATE_BREAK:INP_STATE_MAKE, INP_PAD_SELECT);
     }
 }
-
-void wait_ms (uint32_t count)
-	{
-	uint32_t ticks_wait;
-	ticks_wait = millis() + count;
-	rnd_var2 = rnd_var2  + ticks_wait;
-	while (millis()<= ticks_wait);
-	}
-
-unsigned char	SPI_dat (uint8_t data)
-	{
-	SPI1BUF = data;
-	while (SPI1STATbits.SPIRBF==0);
-	return (SPI1BUF);
-	}
-
-
-uint16_t get_rnd (void)
-	{
-	uint32_t  var;
-	static uint32_t  var_prev;
-	var = rnd_var1 + rnd_var2 + rnd_var3 + (var_prev*1103515245) + 12345;
-	var = var & 0xFFFF;
-	var_prev = var;
-	return var;
-	}
-
-void __ISR(_TIMER_2_VECTOR, IPL6AUTO) Timer2Handler(void)
-//void __ISR(_TIMER_2_VECTOR, ipl6) Timer2Handler(void)
-	{
-    IFS0bits.T2IF = 0;
-	GEN_0_PIN = ~ GEN_0_PIN;
-	rnd_var3++;
-	}
-void __ISR(_TIMER_3_VECTOR, IPL6AUTO) Timer3Handler(void)
-//void __ISR(_TIMER_3_VECTOR, ipl6) Timer3Handler(void)
-	{
-    IFS0bits.T3IF = 0;
-	GEN_1_PIN = ~ GEN_1_PIN;
-	rnd_var3++;
-	}
-void __ISR(_TIMER_4_VECTOR, IPL6AUTO) Timer4Handler(void)
-//void __ISR(_TIMER_4_VECTOR, ipl6) Timer4Handler(void)
-	{
-    IFS0bits.T4IF = 0;
-	GEN_2_PIN = ~ GEN_2_PIN;
-	rnd_var3++;
-	}
-
-void exp_set(uint8_t pos, uint8_t val)
-	{
-	if (pos==0) EXP_0_OUT = val;
-	if (pos==1) EXP_1_OUT = val;
-	if (pos==2) EXP_2_OUT = val;
-	if (pos==3) EXP_3_OUT = val;
-	}
-
-void exp_ddr(uint8_t pos, uint8_t val)
-	{
-	if (pos==0) EXP_0_T = val;
-	if (pos==1) EXP_1_T = val;
-	if (pos==2) EXP_2_T = val;
-	if (pos==3) EXP_3_T = val;
-	}
-
-uint8_t exp_get (uint8_t pos)
-	{
-	if (pos==0) return EXP_0_IN;
-	if (pos==1) return EXP_1_IN;
-	if (pos==2) return EXP_2_IN;
-	if (pos==3) return EXP_3_IN;
-	return 0;
-	}
-
-void serial_flush (void)
-	{
-	while (rx_sta()) rx_read();
-	if (U3STAbits.OERR) U3STAbits.OERR = 0;
-	while (rx_sta()) rx_read();
-	}
-
-uint8_t rx_sta (void)
-	{
-	if (U3STAbits.URXDA==1) return 0xFF;
-	else return 0x00;
-	}
-
-uint8_t rx_read (void)
-	{
-	uint8_t data;
-	data = U3RXREG;
-	return data;
-	}
-void tx_write (uint8_t data)
-	{   
-	U3TXREG = data;
-	while (U3STAbits.UTXBF==1); 
-	}
-

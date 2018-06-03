@@ -335,31 +335,6 @@ static void nes_renderframe(bool draw_flag)
 
 extern bitmap_t *primary_buffer;
 
-static void system_video(bool draw)
-{
-   /* TODO: hack */
-//   if (false == draw)
-//   {
-//      //gui_frame(false);
-//      return;
-//   }
-
-   /* blit the NES screen to our video surface */
-//   vid_blit(nes.vidbuf, 0, (NES_SCREEN_HEIGHT - NES_VISIBLE_HEIGHT) / 2,
-//            0, 0, NES_SCREEN_WIDTH, NES_VISIBLE_HEIGHT);
-
-   /* overlay our GUI on top of it */
-   //gui_frame(true);
-
-   /* blit to screen */
-   //vid_flush();
-    //tft_writebuf((const uint8_t **)primary_buffer->line);
-    tft_writebuf(primary_buffer->data);
-
-   /* grab input */
-   //osd_getinput();
-}
-
 /* main emulation loop */
 void nes_emulate(void)
 {
@@ -375,36 +350,9 @@ void nes_emulate(void)
    while (false == nes.poweroff)
    {
        nes_renderframe(true);
-       system_video(true);
-       
-//      if (nofrendo_ticks != last_ticks)
-//      {
-//         int tick_diff = nofrendo_ticks - last_ticks;
-//
-//         frames_to_render += tick_diff;
-//         gui_tick(tick_diff);
-//         last_ticks = nofrendo_ticks;
-//      }
-
-//      if (true == nes.pause)
-//      {
-//         /* TODO: dim the screen, and pause/silence the apu */
-//         system_video(true);
-//         frames_to_render = 0;
-//      }
-//      else if (frames_to_render > 1)
-//      {
-//         frames_to_render--;
-//         nes_renderframe(true);
-//         system_video(true);
-//      }
-//      else if ((1 == frames_to_render && true == nes.autoframeskip)
-//               || false == nes.autoframeskip)
-//      {
-//         frames_to_render = 0;
-//         nes_renderframe(true);
-//         system_video(true);
-//      }
+       fast_nes_input(false);
+       tft_writebuf(primary_buffer->data);
+	   loop_badge();
    }
 }
 
