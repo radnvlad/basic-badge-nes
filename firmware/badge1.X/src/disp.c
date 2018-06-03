@@ -24,7 +24,7 @@
              		PMP_CS2_CS1_OFF | PMP_WRITE_POL_LO)
 
 #define PMP_MODE        (PMP_IRQ_READ_WRITE | PMP_AUTO_ADDR_OFF | PMP_DATA_BUS_8 | PMP_MODE_MASTER2 |\
-                     PMP_WAIT_BEG_3 | PMP_WAIT_MID_7 | PMP_WAIT_END_3 )
+                     PMP_WAIT_BEG_1 | PMP_WAIT_MID_0 | PMP_WAIT_END_1 )
 
 
 static unsigned char* volatile	pCurrDmaSrc;		// current DMA source buffer pointer

@@ -13,7 +13,7 @@
 
 // DEVCFG2
 #pragma config FPLLIDIV = DIV_1//DIV_2         // PLL Input Divider (2x Divider)
-#pragma config FPLLMUL = MUL_15//MUL_24         // PLL Multiplier (24x Multiplier)
+#pragma config FPLLMUL = MUL_17//MUL_24         // PLL Multiplier (24x Multiplier)
 #pragma config FPLLODIV = DIV_1//DIV_2         // System PLL Output Clock Divider (PLL Divide by 2)
 
 // DEVCFG1

@@ -349,8 +349,8 @@ void nes_emulate(void)
 
    while (false == nes.poweroff)
    {
-       nes_renderframe(true);
        fast_nes_input(false);
+       nes_renderframe(true);
        tft_writebuf(primary_buffer->data);
 	   loop_badge();
    }
