@@ -302,7 +302,7 @@ static void nes_renderframe(bool draw_flag)
    while (262 != nes.scanline)
    {
 //      ppu_scanline(nes.vidbuf, nes.scanline, draw_flag);
-		ppu_scanline(vid_getbuffer(), nes.scanline, draw_flag);
+        ppu_scanline(vid_getbuffer(), nes.scanline, draw_flag);
 
       if (241 == nes.scanline)
       {
@@ -335,6 +335,7 @@ static void nes_renderframe(bool draw_flag)
 
 extern bitmap_t *primary_buffer;
 
+extern volatile int	dmaTxferDone;
 /* main emulation loop */
 void nes_emulate(void)
 {
@@ -350,8 +351,15 @@ void nes_emulate(void)
    while (false == nes.poweroff)
    {
        fast_nes_input(false);
-       nes_renderframe(true);
-       tft_writebuf(primary_buffer->data);
+       
+       if (dmaTxferDone)
+       {
+          nes_renderframe(true);
+          tft_writebuf(primary_buffer->data);
+       }
+       else
+          nes_renderframe(false);
+        
 	   loop_badge();
    }
 }

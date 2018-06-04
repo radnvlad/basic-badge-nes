@@ -30,7 +30,7 @@
 static unsigned char* volatile	pCurrDmaSrc;		// current DMA source buffer pointer
 static unsigned char* volatile	pCurrDmaDst;		// current DMA destination buffer pointer
 static volatile int		dmaPmpWrite;		// telling the ISR the transfer direction
-static volatile int		dmaTxferDone = 1;		// transfer done flag
+volatile int		dmaTxferDone = 1;		// transfer done flag
 
 static int			dmaChn;			// the DMA channel to use
 
@@ -46,7 +46,6 @@ static unsigned int dmaRemSize = 0;
 
 extern uint16_t myPalette[256];
 
-// this needs to be further optimized!
 static inline void disp_apply_palette(uint8_t * buf)
 {
     register int i;
@@ -55,9 +54,22 @@ static inline void disp_apply_palette(uint8_t * buf)
 
     for (i=dataChunkSize; i; i--)
     {
-        tmp = myPalette[buf[i]];
-        palChunk[j--] = tmp & 0x0f;
-        palChunk[j--] = tmp >> 8;
+        if (((i-1)%256) < 248)
+        {
+            tmp = myPalette[buf[i]];
+            palChunk[j--] = tmp & 0x0f;
+            palChunk[j--] = tmp >> 8;
+        }
+        else
+        {
+            j--;
+            j--;
+        }
+//        else
+//        {
+//            palChunk[j--] = 0;
+//            palChunk[j--] = 0;
+//        }
     }
 }
 
