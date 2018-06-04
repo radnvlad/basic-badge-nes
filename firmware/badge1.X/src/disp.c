@@ -170,7 +170,9 @@ inline void tft_writebuf (uint8_t *buf)
     PMCONbits.ON = 0;
     
     const uint16_t xlen = 256, ylen = 240;
-    tft_set_write_area((320-xlen)/2, (240-ylen)/2, xlen-1, ylen-1);
+     
+    // we compensate here as we remove 8px from the right when rendering
+    tft_set_write_area((320-xlen+8)/2, (240-ylen+8)/2, xlen-1, ylen-1);
     TFT_24_7789_Write_Command(0x2C);
     
     PMCONbits.ON = 1;

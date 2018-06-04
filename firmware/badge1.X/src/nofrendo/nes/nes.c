@@ -340,9 +340,6 @@ extern volatile int	dmaTxferDone;
 void nes_emulate(void)
 {
    int last_ticks;
-
-   //osd_setsound(nes.apu->process);
-
    last_ticks = ticks;
    
    nes.scanline_cycles = 0;
@@ -350,22 +347,25 @@ void nes_emulate(void)
 
    while (false == nes.poweroff)
    {
-       fast_nes_input(false);
-       
-       if (ticks != last_ticks)
+       while (!dmaTxferDone)
        {
-            last_ticks = ticks;
-            if (dmaTxferDone)
-            {
-               nes_renderframe(true);
-               tft_writebuf(primary_buffer->data);
-            }
-       }
-       else
-       {
-            nes_renderframe(false);
+           // I do it this way because the freq at which we can 
+           // transfer to TFT is only about 40Hz in the current implementation  
+           // where emulation needs to run at 50Hz for PAL and 60Hz for NTSC
+           if (ticks != last_ticks)
+           {
+               last_ticks = ticks;
+               
+               // process frame without rendering
+               nes_renderframe(false);
+           }
+           fast_nes_input(false);
        }
        
+       // this time render as well
+       nes_renderframe(true);
+       tft_writebuf(primary_buffer->data);
+  
 	   loop_badge();
    }
 }
