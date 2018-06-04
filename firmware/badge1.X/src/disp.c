@@ -46,6 +46,8 @@ static unsigned int dmaRemSize = 0;
 
 extern uint16_t myPalette[256];
 
+volatile uint32_t ticks;
+
 static inline void disp_apply_palette(uint8_t * buf)
 {
     register int i;
@@ -73,6 +75,11 @@ static inline void disp_apply_palette(uint8_t * buf)
     }
 }
 
+void __ISR(_TIMER_1_VECTOR, IPL6AUTO) Timer1Handler(void)
+{
+    IFS0bits.T1IF = 0;
+    ++ticks;
+}
 
 void __ISR(_DMA0_VECTOR, IPL5AUTO) DmaIntHandler(void)
 {

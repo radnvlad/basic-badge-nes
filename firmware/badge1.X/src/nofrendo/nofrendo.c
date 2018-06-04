@@ -55,11 +55,7 @@ static struct
 } console;
 
 /* our happy little timer ISR */
-volatile int nofrendo_ticks = 0;
-static void timer_isr(void)
-{
-   nofrendo_ticks++;
-}
+
 
 static void timer_isr_end(void) {} /* code marker for djgpp */
 

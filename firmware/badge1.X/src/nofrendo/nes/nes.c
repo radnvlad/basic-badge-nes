@@ -334,17 +334,17 @@ static void nes_renderframe(bool draw_flag)
 }
 
 extern bitmap_t *primary_buffer;
-
+extern volatile uint32_t ticks;
 extern volatile int	dmaTxferDone;
 /* main emulation loop */
 void nes_emulate(void)
 {
-   int last_ticks, frames_to_render;
+   int last_ticks;
 
    //osd_setsound(nes.apu->process);
 
-   last_ticks = nofrendo_ticks;
-   frames_to_render = 0;
+   last_ticks = ticks;
+   
    nes.scanline_cycles = 0;
    nes.fiq_cycles = (int) NES_FIQ_PERIOD;
 
@@ -352,14 +352,20 @@ void nes_emulate(void)
    {
        fast_nes_input(false);
        
-       if (dmaTxferDone)
+       if (ticks != last_ticks)
        {
-          nes_renderframe(true);
-          tft_writebuf(primary_buffer->data);
+            last_ticks = ticks;
+            if (dmaTxferDone)
+            {
+               nes_renderframe(true);
+               tft_writebuf(primary_buffer->data);
+            }
        }
        else
-          nes_renderframe(false);
-        
+       {
+            nes_renderframe(false);
+       }
+       
 	   loop_badge();
    }
 }

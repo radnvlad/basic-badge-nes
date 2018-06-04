@@ -160,6 +160,13 @@ void hw_init (void)
 //    INTEnable(INT_SOURCE_UART_RX(UART3), INT_ENABLED);
 //    IPC7bits.U3IP = 6;
     U3STAbits.OERR=0;
+    
+    //60 Hz ticks
+    PR1 = (1*(FPB / 64 / 60)) - 1;
+    T1CONbits.TCKPS = 0b10;	//Prescale 64 makes 1ms = 750 ticks at 48 MHz
+    T1CONbits.TON = 1;
+    IEC0bits.T1IE = 1;
+    IPC1bits.T1IP = 6;
 
 	SPI1CONbits.MSTEN = 1;
     SPI1CONbits.CKP = 0;

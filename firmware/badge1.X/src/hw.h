@@ -145,7 +145,7 @@ uint8_t stdio_in (uint8_t block);
 int8_t stdio_get_state (void);
 int8_t stdio_get (int8_t * dat);
 
-#define	FCY		48000000UL
+#define	FCY		120000000UL
 #define	FPB		FCY/1
 
 void serial_flush (void);
